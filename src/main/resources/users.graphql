@@ -1,0 +1,21 @@
+schema{
+    query: Query
+}
+
+type Query{
+    allUsers : [Users]
+    user(userId: ID): Users
+}
+
+
+type Users {
+    name : String,
+    email : String,
+    pswd : String,
+    user_ph_no : String,
+    userId : ID,
+    organization_email : String,
+    createdAt : String,
+    updatedAt: String,
+    profile_url : String
+}

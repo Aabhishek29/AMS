@@ -2,15 +2,18 @@ package com.zeus4th.ams;
 
 public class Model {
 
-    private final long user_id;
-    private final String user_name;
-    private final String user_email;
-    private final String user_password;
-    private final long user_ph_no;
-    private final String user_organization_email;
-    private final String created_at;
-    private final String updated_at;
-    private final String profile_url;
+    private long user_id;
+    private  String user_name;
+    private  String user_email = null;
+    private  String user_password = null;
+    private  long user_ph_no = 0;
+    private  String user_organization_email = null;
+    private  String created_at = null;
+    private  String updated_at= null;
+    private  String profile_url = null;
+    private Boolean is_authenticated =false;
+
+
 
 
     public Model(long user_id, String user_name, String user_email, String user_password, long user_ph_no, String user_organization_email, String created_at, String updated_at, String profile_url){
@@ -25,6 +28,16 @@ public class Model {
         this.profile_url = profile_url;
 
 
+    }
+    public Model(long user_id, String user_name){
+        this.user_id = user_id;
+        this.user_name = user_name;
+    }
+
+    public Model(long user_id, String user_name, Boolean is_authenticated){
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.is_authenticated = is_authenticated;
     }
 
 
@@ -62,5 +75,10 @@ public class Model {
 
     public String getProfile_url() {
         return profile_url;
+    }
+
+    public Boolean getIs_authenticated() {
+
+        return is_authenticated;
     }
 }

@@ -1,6 +1,6 @@
-package com.zeus4th.ams;
+package com.zeus4th.ams.model;
 
-public class Model {
+public class RestModel {
 
     private long user_id;
     private  String user_name;
@@ -16,7 +16,7 @@ public class Model {
 
 
 
-    public Model(long user_id, String user_name, String user_email, String user_password, long user_ph_no, String user_organization_email, String created_at, String updated_at, String profile_url){
+    public RestModel(long user_id, String user_name, String user_email, String user_password, long user_ph_no, String user_organization_email, String created_at, String updated_at, String profile_url){
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_email = user_email;
@@ -29,12 +29,12 @@ public class Model {
 
 
     }
-    public Model(long user_id, String user_name){
+    public RestModel(long user_id, String user_name){
         this.user_id = user_id;
         this.user_name = user_name;
     }
 
-    public Model(long user_id, String user_name, Boolean is_authenticated){
+    public RestModel(long user_id, String user_name, Boolean is_authenticated){
         this.user_id = user_id;
         this.user_name = user_name;
         this.is_authenticated = is_authenticated;

@@ -1,9 +1,9 @@
-package com.zeus4th.ams;
+package com.zeus4th.ams.controlller;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.zeus4th.ams.model.RestModel;
+import com.zeus4th.ams.model.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,13 +16,13 @@ public class ModelController {
     private Boolean is_authenticated = false;
 
     @GetMapping("/users")
-    public RestModel model(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new RestModel(1, String.format(template, name));
+    public User model(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return new User(1, String.format(template, name));
 
     }
 
     @GetMapping("/auth")
-    public RestModel auth(@RequestParam(value = "name", defaultValue = "user") String name) {
+    public User auth(@RequestParam(value = "name", defaultValue = "user") String name) {
 
         if (Objects.equals(name, "abhi")){
             System.out.println("Name value  "+name);
@@ -31,7 +31,7 @@ public class ModelController {
             is_authenticated = false;
         }
 
-        return new RestModel(1, String.format(template, name), is_authenticated);
+        return new User(1, String.format(template, name), is_authenticated);
 
     }
 }

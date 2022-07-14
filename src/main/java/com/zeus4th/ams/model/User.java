@@ -7,140 +7,131 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long user_id;
-    @Column(name = "user_name")
-    private  String user_name;
+    private long id;
 
-    @Column(name = "user_email")
-    private  String user_email = null;
-    @Column(name = "user_password")
-    private  String user_password = null;
-    @Column(name = "user_ph_no")
-    private  long user_ph_no = 0;
-    @Column(name = "user_organization_email")
-    private  String user_organization_email = null;
-    @Column(name = "created_at")
-    private  String created_at = null;
-    @Column(name = "updated_at")
-    private  String updated_at= null;
+    @Column(name = "user_name", length = 50, unique = true,nullable = false)
+    private  String userName;
+    @Column(name = "name", length = 50, nullable = false)
+    private  String name;
+    @Column(name = "email", length = 80, unique = true)
+    private  String email ;
+    @Column(name = "password", length = 16, nullable = false)
+    private  String password ;
+    @Column(name = "phone", unique = true, length = 10)
+    private  long phone ;
+    @Column(name = "organization_email", unique = true, length = 80)
+    private  String organizationEmail ;
+    @Column(name = "created_at", nullable = false)
+    private  String createdAt ;
+    @Column(name = "updated_at", nullable = false)
+    private  String updatedAt;
     @Column(name = "profile_url")
-    private  String profile_url = null;
-
-    @Column(name = "is_authenticated")
-    private Boolean is_authenticated =false;
-
-
-
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
-    }
-
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
-    }
-
-    public void setUser_ph_no(long user_ph_no) {
-        this.user_ph_no = user_ph_no;
-    }
-
-    public void setUser_organization_email(String user_organization_email) {
-        this.user_organization_email = user_organization_email;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
-
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public void setProfile_url(String profile_url) {
-        this.profile_url = profile_url;
-    }
-
-    public void setIs_authenticated(Boolean is_authenticated) {
-        this.is_authenticated = is_authenticated;
-    }
-
-
-
-
-    public User(long user_id, String user_name, String user_email, String user_password, long user_ph_no, String user_organization_email, String created_at, String updated_at, String profile_url){
-        this.user_id = user_id;
-        this.user_name = user_name;
-        this.user_email = user_email;
-        this.user_password  = user_password;
-        this.user_ph_no = user_ph_no;
-        this.user_organization_email = user_organization_email;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.profile_url = profile_url;
-
-
-    }
-    public User(long user_id, String user_name){
-        this.user_id = user_id;
-        this.user_name = user_name;
-    }
-
-    public User(long user_id, String user_name, Boolean is_authenticated){
-        this.user_id = user_id;
-        this.user_name = user_name;
-        this.is_authenticated = is_authenticated;
-    }
+    private  String profileUrl ;
+    @Column(name = "authenticated", nullable = false)
+    private Boolean authenticated ;
 
     public User() {
 
     }
 
-
-    public long getUser_id() {
-        return user_id;
+    public User(long id, String userName,String name, String email, String password, long phone, String organizationEmail, String createdAt, String updatedAt, String profileUrl, Boolean authenticated) {
+        this.id = id;
+        this.userName = userName;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.organizationEmail = organizationEmail;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.profileUrl = profileUrl;
+        this.authenticated = authenticated;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public long getId() {
+        return id;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public void setId(long id) {
+        this.id = id;
+    }
+    public String getUserName() {
+        return userName;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public long getUser_ph_no() {
-        return user_ph_no;
+    public String getName() {
+        return name;
     }
 
-    public String getUser_organization_email() {
-        return user_organization_email;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getEmail() {
+        return email;
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getProfile_url() {
-        return profile_url;
+    public String getPassword() {
+        return password;
     }
 
-    public Boolean getIs_authenticated() {
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-        return is_authenticated;
+    public long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
+    }
+
+    public String getOrganizationEmail() {
+        return organizationEmail;
+    }
+
+    public void setOrganizationEmail(String organizationEmail) {
+        this.organizationEmail = organizationEmail;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public Boolean getAuthenticated() {
+        return authenticated;
+    }
+
+    public void setAuthenticated(Boolean authenticated) {
+        this.authenticated = authenticated;
     }
 }

@@ -34,8 +34,8 @@ public class User {
 
     }
 
-    public User(long id, String userName,String name, String email, String password, long phone, String organizationEmail, String createdAt, String updatedAt, String profileUrl, Boolean authenticated) {
-        this.id = id;
+    public User( String userName,String name, String email, String password, long phone, String organizationEmail, String createdAt, String updatedAt, String profileUrl, Boolean authenticated) {
+
         this.userName = userName;
         this.name = name;
         this.email = email;

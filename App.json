@@ -1,0 +1,9 @@
+{
+  "name": "ams",
+  "buildpacks": [
+    {
+      "url": "heroku/maven"
+    }
+  ]
+
+}

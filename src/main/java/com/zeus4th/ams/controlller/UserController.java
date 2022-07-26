@@ -51,6 +51,25 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/users/auth")
+    public ResponseEntity<List<User>> getUserByUserName(@RequestParam("username") String username,
+                                                        @RequestParam("password") String password) {
+        try {
+            List<User> users = userRepository.findByUserNameEquals(username);
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }else {
+                if (password.equals(users.get(0).getPassword()))
+                return new ResponseEntity<>(HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {

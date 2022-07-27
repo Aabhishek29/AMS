@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "userName": "Abhisss",
+  "name": "Abhinay Sirohi",
+  "email": "abhisirohi2002@gmail.com",
+  "password": "Abhi123",
+  "phone": 1234567891,
+  "organizationEmail": "abhiorgnization@gmail.com",
+  "createdAt": "14july2022",
+  "updatedAt": "14july2022",
+  "profileUrl": "https://www.youtube.com/watch?v=R4mCK5P7WZE",
+  "authenticated": false
+}

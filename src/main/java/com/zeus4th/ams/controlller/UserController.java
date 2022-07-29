@@ -1,10 +1,13 @@
 package com.zeus4th.ams.controlller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.zeus4th.ams.model.User;
+import com.zeus4th.ams.model.UserSignUp;
 import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +36,7 @@ public class UserController {
             if (name == null)
                 userRepository.findAll().forEach(users::add);
             else
-                userRepository.findByIdContaining(name).forEach(users::add);
+                userRepository.findByUserNameEquals(name).forEach(users::add);
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -71,10 +74,20 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody UserSignUp user) {
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String newdate = dtf.format(now);
+
         try {
+
+            System.out.println("Date:  "+newdate);
             User _user = userRepository
-                    .save(new User(user.getUserName(), user.getName(), user.getEmail(),user.getPassword(),user.getPhone(),user.getOrganizationEmail(),user.getCreatedAt(),user.getUpdatedAt(),user.getProfileUrl(),false));
+                    .save(new User(user.getUserName(), user.getName(), user.getEmail(),user.getPassword(),
+                            user.getPhone(),user.getOrganizationEmail(),newdate, newdate,
+                            user.getProfileUrl(),
+                            false));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -91,9 +104,9 @@ public class UserController {
             _user.setEmail(user.getEmail());
             _user.setAuthenticated(user.getAuthenticated());
             _user.setPhone(user.getPhone());
-            _user.setCreatedAt(user.getCreatedAt());
+            _user.setCreatedAt();
             _user.setPassword(user.getPassword());
-            _user.setUpdatedAt(user.getUpdatedAt());
+            _user.setUpdatedAt();
             _user.setProfileUrl(user.getProfileUrl());
             _user.setOrganizationEmail(user.getOrganizationEmail());
 

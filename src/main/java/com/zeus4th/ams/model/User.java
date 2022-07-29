@@ -1,5 +1,8 @@
 package com.zeus4th.ams.model;
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -34,7 +37,21 @@ public class User {
 
     }
 
-    public User( String userName,String name, String email, String password, long phone, String organizationEmail, String createdAt, String updatedAt, String profileUrl, Boolean authenticated) {
+//    public User( String userName,String name, String email, String password, long phone, String organizationEmail, String profileUrl, Boolean authenticated) {
+//
+//        this.userName = userName;
+//        this.name = name;
+//        this.email = email;
+//        this.password = password;
+//        this.phone = phone;
+//        this.organizationEmail = organizationEmail;
+//        this.createdAt = getCurrentTime();
+//        this.updatedAt = getCurrentTime();
+//        this.profileUrl = profileUrl;
+//        this.authenticated = authenticated;
+//    }
+    public User( String userName,String name, String email, String password, long phone, String organizationEmail,
+                 String createdAt,String updatedAt, String profileUrl, Boolean authenticated) {
 
         this.userName = userName;
         this.name = name;
@@ -51,6 +68,7 @@ public class User {
     public long getId() {
         return id;
     }
+
 
     public void setId(long id) {
         this.id = id;
@@ -104,19 +122,32 @@ public class User {
     }
 
     public String getCreatedAt() {
+
+
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setCreatedAt() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String newdate = dtf.format(now);
+        this.createdAt =newdate;
+
     }
 
     public String getUpdatedAt() {
+
+
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdatedAt() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String newdate = dtf.format(now);
+        this.updatedAt = newdate;
+
+
     }
 
     public String getProfileUrl() {
@@ -134,4 +165,12 @@ public class User {
     public void setAuthenticated(Boolean authenticated) {
         this.authenticated = authenticated;
     }
+
+    public String getCurrentTime(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String newdate = dtf.format(now);
+        return newdate;
+    }
+
 }

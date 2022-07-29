@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByAuthenticated(boolean authenticated);
     List<User> findByIdContaining(String id);
     List<User> findByUserNameEquals(String userName);
+
+
 }

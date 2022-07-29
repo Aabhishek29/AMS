@@ -34,6 +34,11 @@ public class User {
     private Boolean authenticated ;
 
     public User() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String newdate = dtf.format(now);
+        this.createdAt = newdate;
+        this.updatedAt = newdate;
 
     }
 
@@ -122,16 +127,14 @@ public class User {
     }
 
     public String getCreatedAt() {
-
-
         return createdAt;
     }
 
-    public void setCreatedAt() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String newdate = dtf.format(now);
-        this.createdAt =newdate;
+    public void setCreatedAt(String createdAt) {
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//        LocalDateTime now = LocalDateTime.now();
+//        String newdate = dtf.format(now);
+        this.createdAt =createdAt;
 
     }
 
@@ -166,11 +169,11 @@ public class User {
         this.authenticated = authenticated;
     }
 
-    public String getCurrentTime(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String newdate = dtf.format(now);
-        return newdate;
-    }
+//    public String getCurrentTime(){
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//        LocalDateTime now = LocalDateTime.now();
+//        String newdate = dtf.format(now);
+//        return newdate;
+//    }
 
 }

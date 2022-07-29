@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.zeus4th.ams.model.User;
-import com.zeus4th.ams.model.UserSignUp;
 import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,7 +73,12 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody UserSignUp user) {
+    public ResponseEntity<User> createUser2(@RequestParam ("userName") String userName,
+                                           @RequestParam("name") String name, @RequestParam("email")String email,
+                                           @RequestParam("password") String password,
+                                           @RequestParam("phone") long phone,
+                                           @RequestParam("organizationEmail") String organizationEmail,
+                                           @RequestParam("profileUrl") String profileUrl,@RequestParam("authenticated") Boolean authenticated) {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
@@ -84,10 +88,8 @@ public class UserController {
 
             System.out.println("Date:  "+newdate);
             User _user = userRepository
-                    .save(new User(user.getUserName(), user.getName(), user.getEmail(),user.getPassword(),
-                            user.getPhone(),user.getOrganizationEmail(),newdate, newdate,
-                            user.getProfileUrl(),
-                            false));
+                    .save(new User(userName,name,email,password,phone,organizationEmail,newdate,newdate,
+                            profileUrl,authenticated));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,8 +106,8 @@ public class UserController {
             _user.setEmail(user.getEmail());
             _user.setAuthenticated(user.getAuthenticated());
             _user.setPhone(user.getPhone());
-            _user.setCreatedAt();
             _user.setPassword(user.getPassword());
+            _user.setCreatedAt(_user.getCreatedAt());
             _user.setUpdatedAt();
             _user.setProfileUrl(user.getProfileUrl());
             _user.setOrganizationEmail(user.getOrganizationEmail());

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
+//@EntityListeners(User.class)
 @Table(name = "users")
 public class User {
 
@@ -168,6 +169,17 @@ public class User {
     public void setAuthenticated(Boolean authenticated) {
         this.authenticated = authenticated;
     }
+
+//    public class LastUpdateListener {
+//        /**
+//         * automatic property set before any database persistence
+//         */
+//        @PreUpdate
+//        @PrePersist
+//        public void setLastUpdate(User o) {
+//            o.setAuthenticated(true );
+//        }
+//    }
 
 //    public String getCurrentTime(){
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");

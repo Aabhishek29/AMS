@@ -2,9 +2,7 @@ package com.zeus4th.ams.controlller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import com.zeus4th.ams.model.User;
 import com.zeus4th.ams.repository.UserRepository;
@@ -54,17 +52,26 @@ public class UserController {
         }
     }
     @GetMapping("/users/auth")
-    public ResponseEntity<List<User>> getUserByUserName(@RequestParam("username") String username,
+    public ResponseEntity<Map<String, String>> getUserByUserName(@RequestParam("username") String username,
                                                         @RequestParam("password") String password) {
         try {
             List<User> users = userRepository.findByUserNameEquals(username);
             if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }else {
-                if (password.equals(users.get(0).getPassword()))
-                return new ResponseEntity<>(HttpStatus.OK);
-                else
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                if (password.equals(users.get(0).getPassword())){
+                    Map<String, String> body = new HashMap<>();
+                    body.put("status", "true");
+
+                    return new ResponseEntity<>(body,HttpStatus.OK);
+                }
+
+                else{
+
+                    Map<String, String> body = new HashMap<>();
+                    body.put("status", "false");
+                    return new ResponseEntity<>(body,HttpStatus.OK);
+                }
 
             }
         } catch (Exception e) {
@@ -73,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser2(@RequestParam ("userName") String userName,
+    public ResponseEntity<User> createUser(@RequestParam ("userName") String userName,
                                            @RequestParam("name") String name, @RequestParam("email")String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("phone") long phone,

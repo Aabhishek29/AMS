@@ -40,6 +40,7 @@ public class User {
         String newdate = dtf.format(now);
         this.createdAt = newdate;
         this.updatedAt = newdate;
+        this.authenticated =true;
 
     }
 
@@ -58,7 +59,6 @@ public class User {
 //    }
     public User( String userName,String name, String email, String password, long phone, String organizationEmail,
                  String createdAt,String updatedAt, String profileUrl, Boolean authenticated) {
-
         this.userName = userName;
         this.name = name;
         this.email = email;

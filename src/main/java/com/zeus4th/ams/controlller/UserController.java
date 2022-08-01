@@ -78,7 +78,7 @@ public class UserController {
                                            @RequestParam("password") String password,
                                            @RequestParam("phone") long phone,
                                            @RequestParam("organizationEmail") String organizationEmail,
-                                           @RequestParam("profileUrl") String profileUrl,@RequestParam("authenticated") Boolean authenticated) {
+                                           @RequestParam("profileUrl") String profileUrl) {
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
@@ -89,7 +89,7 @@ public class UserController {
             System.out.println("Date:  "+newdate);
             User _user = userRepository
                     .save(new User(userName,name,email,password,phone,organizationEmail,newdate,newdate,
-                            profileUrl,authenticated));
+                            profileUrl,true));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

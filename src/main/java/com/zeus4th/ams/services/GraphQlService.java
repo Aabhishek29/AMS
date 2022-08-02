@@ -2,6 +2,7 @@ package com.zeus4th.ams.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.annotation.PostConstruct;
 
 import com.zeus4th.ams.services.datafetcher.UserDataFetcher;
@@ -32,7 +33,7 @@ public class GraphQlService {
   @PostConstruct
   private void loadSchema() throws IOException {
 
-    File file = resource.getFile();
+    InputStream file = resource.getInputStream();
 
     // Get the graphql file
     TypeDefinitionRegistry typeDefinitionRegistry = new SchemaParser().parse(file);

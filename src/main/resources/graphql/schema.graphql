@@ -1,0 +1,26 @@
+schema {
+    query: Query
+#    mutation: Mutations
+}
+
+interface Node{
+    id : ID
+}
+
+type Users implements Node{
+    id : ID,
+    userName : String!,
+    name:String!,
+    email : String!,
+    password : String!,
+    phone : String,
+    organizationEmail : String,
+    createdAt : String,
+    updatedAt: String,
+    profileUrl : String,
+    authenticated: String
+}
+
+type sessionDetails implements Node{
+    id : ID
+}

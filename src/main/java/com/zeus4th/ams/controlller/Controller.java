@@ -16,7 +16,7 @@ public class Controller {
     @Autowired
     private GraphQlService graphQLService;
 
-    @GetMapping("graphql/users")
+    @GetMapping("/graphql")
     public ResponseEntity<Object> getAllProperty(@RequestBody String query) {
         ExecutionResult execute = graphQLService.executeGraphQL(query);
         return new ResponseEntity<>(execute, HttpStatus.OK);

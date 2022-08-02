@@ -1,6 +1,7 @@
 package com.zeus4th.ams.controlller;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -62,17 +63,13 @@ public class UserController {
                 if (password.equals(users.get(0).getPassword())){
                     Map<String, String> body = new HashMap<>();
                     body.put("status", "true");
-
                     return new ResponseEntity<>(body,HttpStatus.OK);
                 }
-
                 else{
-
                     Map<String, String> body = new HashMap<>();
                     body.put("status", "false");
                     return new ResponseEntity<>(body,HttpStatus.OK);
                 }
-
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,9 +83,9 @@ public class UserController {
                                            @RequestParam("phone") long phone,
                                            @RequestParam("organizationEmail") String organizationEmail,
                                            @RequestParam("profileUrl") String profileUrl) {
-
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
+            ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
+            LocalDateTime now = LocalDateTime.now(zoneid1);
             String newdate = dtf.format(now);
 
         try {
@@ -96,7 +93,7 @@ public class UserController {
             System.out.println("Date:  "+newdate);
             User _user = userRepository
                     .save(new User(userName,name,email,password,phone,organizationEmail,newdate,newdate,
-                            profileUrl,true));
+                            profileUrl,true, false));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -118,6 +115,7 @@ public class UserController {
             _user.setUpdatedAt();
             _user.setProfileUrl(user.getProfileUrl());
             _user.setOrganizationEmail(user.getOrganizationEmail());
+            _user.setSuperUser(user.getSuperUser());
 
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         } else {

@@ -1,8 +1,8 @@
 package com.zeus4th.ams.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Entity
 //@EntityListeners(User.class)
@@ -34,13 +34,18 @@ public class User {
     @Column(name = "authenticated", nullable = false)
     private Boolean authenticated ;
 
+    @Column(name = "super_user")
+    private Boolean superUser;
+
     public User() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
+        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
+        LocalDateTime now = LocalDateTime.now(zoneid1);
         String newdate = dtf.format(now);
         this.createdAt = newdate;
         this.updatedAt = newdate;
         this.authenticated =true;
+        this.superUser = false;
 
     }
 
@@ -58,7 +63,7 @@ public class User {
 //        this.authenticated = authenticated;
 //    }
     public User( String userName,String name, String email, String password, long phone, String organizationEmail,
-                 String createdAt,String updatedAt, String profileUrl, Boolean authenticated) {
+                 String createdAt,String updatedAt, String profileUrl, Boolean authenticated, Boolean superUser) {
         this.userName = userName;
         this.name = name;
         this.email = email;
@@ -69,7 +74,9 @@ public class User {
         this.updatedAt = updatedAt;
         this.profileUrl = profileUrl;
         this.authenticated = authenticated;
+        this.superUser = superUser;
     }
+
 
     public long getId() {
         return id;
@@ -147,7 +154,8 @@ public class User {
 
     public void setUpdatedAt() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
+        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
+        LocalDateTime now = LocalDateTime.now(zoneid1);
         String newdate = dtf.format(now);
         this.updatedAt = newdate;
 
@@ -170,7 +178,19 @@ public class User {
         this.authenticated = authenticated;
     }
 
-//    public class LastUpdateListener {
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Boolean getSuperUser() {
+        return superUser;
+    }
+
+    public void setSuperUser(Boolean superUser) {
+        this.superUser = superUser;
+    }
+
+    //    public class LastUpdateListener {
 //        /**
 //         * automatic property set before any database persistence
 //         */

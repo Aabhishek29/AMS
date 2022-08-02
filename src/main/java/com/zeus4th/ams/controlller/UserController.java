@@ -63,6 +63,8 @@ public class UserController {
                 if (password.equals(users.get(0).getPassword())){
                     Map<String, String> body = new HashMap<>();
                     body.put("status", "true");
+                    body.put("superUser",String.valueOf(users.get(0).getSuperUser()));
+                    body.put("authenticated",String.valueOf(users.get(0).getAuthenticated()));
                     return new ResponseEntity<>(body,HttpStatus.OK);
                 }
                 else{

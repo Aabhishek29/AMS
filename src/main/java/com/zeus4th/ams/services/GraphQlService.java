@@ -24,7 +24,7 @@ public class GraphQlService {
   private UserDataFetcher userDataFetcher;
 
 
-  @Value("classpath:graphql/users.graphql")
+  @Value("classpath:.graphql/users.graphql")
   Resource resource;
   private GraphQL graphQL;
 

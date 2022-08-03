@@ -41,8 +41,9 @@ public class AmsApplication {
                         .allowedOrigins("http://localhost:8080","https://portal-ams.herokuapp.com",
                                 "http://localhost:3000")
                         .allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.OPTIONS.name(),"DELETE", "PUT", "PATCH")
-                        .allowedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE,"Cache-Control")
-                        .exposedHeaders(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE,"Cache-Control")
+                        .allowedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Headers",
+                                HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE,"Cache-Control")
+                        .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Headers",HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE,"Cache-Control")
                         .maxAge(4800);
             }
         };

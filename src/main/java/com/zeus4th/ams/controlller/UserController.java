@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = {"http://localhost:8080","https://portal-ams.herokuapp.com","http://localhost:8080","https://amsportalapp.herokuapp.com"},
         allowedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"},
-        allowCredentials = "true",methods = {
-        RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS
-})
+        allowCredentials = "true")
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -74,11 +72,6 @@ public class UserController {
         }
     }
 
-    @CrossOrigin(origins = {"http://localhost:8080","https://portal-ams.herokuapp.com","http://localhost:8080","https://amsportalapp.herokuapp.com"},
-            allowedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"},
-            allowCredentials = "true",methods = {
-            RequestMethod.POST,RequestMethod.GET,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS
-    },exposedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"} )
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestParam ("userName") String userName,
                                            @RequestParam("name") String name, @RequestParam("email")String email,

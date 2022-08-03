@@ -39,7 +39,7 @@ public class AmsApplication {
 //                logger.info("Adding CORS to the service");
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:8080","https://portal-ams.herokuapp.com",
-                                "http://localhost:3000")
+                                "http://localhost:3000","https://amsportalapp.herokuapp.com")
                         .allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.OPTIONS.name(),"DELETE", "PUT", "PATCH")
                         .allowedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Headers",
                                 HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE,"Cache-Control")

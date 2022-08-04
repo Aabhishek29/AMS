@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<String> createUser(@RequestParam ("userName") String userName,
+    public ResponseEntity<User> createUser(@RequestParam ("userName") String userName,
                                            @RequestParam("name") String name, @RequestParam("email")String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("phone") long phone,
@@ -90,7 +90,7 @@ public class UserController {
             User _user = userRepository
                     .save(new User(userName,name,email,password,phone,organizationEmail,newdate,newdate,
                             profileUrl,true, false));
-            return new ResponseEntity<>(_user.toString(), HttpStatus.CREATED);
+            return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

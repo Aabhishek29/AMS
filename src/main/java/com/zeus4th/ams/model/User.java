@@ -3,15 +3,24 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 //@EntityListeners(User.class)
 @Table(name = "users")
 public class User {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true,nullable = false)
     private long id;
+
+    @Id
+    @Column(name = "userId",unique = true,nullable = false)
+    private String userId;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<UserDetails> userDetails = new ArrayList<>();
 
     @Column(name = "user_name", length = 50, unique = true,nullable = false)
     private  String userName;
@@ -31,9 +40,12 @@ public class User {
     private  String updatedAt;
     @Column(name = "profile_url")
     private  String profileUrl ;
+
+    // authenticated indicate that user is granted by AMS portal
     @Column(name = "authenticated", nullable = false)
     private Boolean authenticated ;
 
+    // Super User for AMS portal
     @Column(name = "super_user")
     private Boolean superUser;
 
@@ -77,6 +89,21 @@ public class User {
         this.superUser = superUser;
     }
 
+    public List<UserDetails> getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(List<UserDetails> userDetails) {
+        this.userDetails = userDetails;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public long getId() {
         return id;

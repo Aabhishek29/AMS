@@ -1,21 +1,32 @@
 package com.zeus4th.ams.model;
 
-import javax.persistence.*;
+import com.zeus4th.ams.model.ano.models.SessionList;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 @Table(name = "userDetails")
 public class UserDetails {
 
-    @Column(name = "uid",unique = true,nullable = false)
-    private String uid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id",unique = true,nullable = false)
+    private String id;
 
     @Id
-    @Column(name = "session_list_id",unique = true,nullable = false)
-    private String sessionListId;
+    @Column(name = "sessionListId",unique = true,nullable = false)
+    private String sessionListId; // primary key
 
     @Column(name = "created_at",nullable = false)
     private String createdAt;
     @Column(name = "updated_at",nullable = false)
     private String updatedAt;
+
+
+    // appId define as "AMS-ANO", "AMS-Upcoming...",etc.
+    @Column(name = "appId", nullable = false)
+    private String appId;
 
     @Column(name = "status", nullable = true, unique = false)
     private String status;
@@ -23,24 +34,47 @@ public class UserDetails {
     @Column(name = "profile_url")
     private String pofileUrl;
 
-    public UserDetails() {
+    @Column(name = "deactivate_user")
+    private Boolean deactivateUser;
+
+    @OneToMany(mappedBy = "userDetails", fetch = FetchType.LAZY)
+    private List<SessionList> listSessions = new ArrayList<>();
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_user_id", nullable = false)
+    private User user;
+
+    public Boolean getDeactivateUser() {
+        return deactivateUser;
     }
 
-    public UserDetails(String uid, String sessionListId, String createdAt, String updatedAt, String status, String pofileUrl) {
-        this.uid = uid;
-        this.sessionListId = sessionListId;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.status = status;
-        this.pofileUrl = pofileUrl;
+    public void setDeactivateUser(Boolean deactivateUser) {
+        this.deactivateUser = deactivateUser;
     }
 
-    public String getUid() {
-        return uid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getid() {
+        return id;
+    }
+
+    public void setid(String id) {
+        this.id = id;
     }
 
     public String getSessionListId() {
@@ -82,4 +116,15 @@ public class UserDetails {
     public void setPofileUrl(String pofileUrl) {
         this.pofileUrl = pofileUrl;
     }
+
+    public List<SessionList> getListSessions() {
+        return listSessions;
+    }
+
+    public void setListSessions(List<SessionList> listSessions) {
+        this.listSessions = listSessions;
+    }
+
+
+
 }

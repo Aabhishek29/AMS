@@ -1,7 +1,8 @@
-package com.zeus4th.ams.model;
+package com.zeus4th.ams.model.ano.models;
 
 import javax.persistence.*;
 
+@Entity
 @Table(name = "chatMessage")
 public class ChatMessages {
 
@@ -16,6 +17,18 @@ public class ChatMessages {
     private String createdAt;
     @Column(name = "sender",nullable = false)
     private String sender;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "session_details_chat_message_id", nullable = false)
+    private SessionDetails sessionDetails;
+
+    public SessionDetails getSessionDetails() {
+        return sessionDetails;
+    }
+
+    public void setSessionDetails(SessionDetails sessionDetails) {
+        this.sessionDetails = sessionDetails;
+    }
 
     public long getMessageId() {
         return messageId;

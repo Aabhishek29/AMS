@@ -39,6 +39,14 @@ public class SessionDetails {
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<ChatMessages> chatMessagesId = new ArrayList<>();
 
+    public List<ChatPaticipants> getChatPaticipantsList() {
+        return chatPaticipantsList;
+    }
+
+    public void setChatPaticipantsList(List<ChatPaticipants> chatPaticipantsList) {
+        this.chatPaticipantsList = chatPaticipantsList;
+    }
+
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<ChatPaticipants> chatPaticipantsList = new ArrayList<>();
 

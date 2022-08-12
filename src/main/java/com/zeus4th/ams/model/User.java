@@ -1,19 +1,20 @@
 package com.zeus4th.ams.model;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 //@EntityListeners(User.class)
 @Table(name = "users")
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true,nullable = false)
-    private long id;
 
     @Id
     @Column(name = "userId",unique = true,nullable = false)
@@ -50,14 +51,6 @@ public class User {
     private Boolean superUser;
 
     public User() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
-        LocalDateTime now = LocalDateTime.now(zoneid1);
-        String newdate = dtf.format(now);
-        this.createdAt = newdate;
-        this.updatedAt = newdate;
-        this.authenticated =true;
-        this.superUser = false;
 
     }
 
@@ -74,8 +67,9 @@ public class User {
 //        this.profileUrl = profileUrl;
 //        this.authenticated = authenticated;
 //    }
-    public User( String userName,String name, String email, String password, long phone, String organizationEmail,
+    public User( String userId, String userName,String name, String email, String password, long phone, String organizationEmail,
                  String createdAt,String updatedAt, String profileUrl, Boolean authenticated, Boolean superUser) {
+        this.userId = userId;
         this.userName = userName;
         this.name = name;
         this.email = email;
@@ -105,14 +99,6 @@ public class User {
         this.userId = userId;
     }
 
-    public long getId() {
-        return id;
-    }
-
-
-    public void setId(long id) {
-        this.id = id;
-    }
     public String getUserName() {
         return userName;
     }
@@ -234,5 +220,18 @@ public class User {
 //        String newdate = dtf.format(now);
 //        return newdate;
 //    }
+
+    @PrePersist
+    public void initializedUuid() {
+        this.userId = UUID.randomUUID().toString();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
+        LocalDateTime now = LocalDateTime.now(zoneid1);
+        String newdate = dtf.format(now);
+        this.createdAt = newdate;
+        this.updatedAt = newdate;
+        this.authenticated =true;
+        this.superUser = false;
+    }
 
 }

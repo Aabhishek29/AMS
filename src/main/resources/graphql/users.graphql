@@ -4,11 +4,11 @@ schema{
 
 type Query{
     allUsers : [Users]
+    getUserDetails(userId:String,userName: String) : [Users]
 }
 
 
 type Users {
-    id : ID,
     userName : String!,
     userId: String!,
     name:String!,

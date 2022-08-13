@@ -8,10 +8,6 @@ import java.util.List;
 @Table(name = "chatSessionDetails")
 public class SessionDetails {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cid",unique = true,nullable = false)
-    private long cid;
-
     @Id()
     @Column(name = "chat_message_id", unique = true,nullable = false)
     private String chatMessageId;
@@ -39,24 +35,16 @@ public class SessionDetails {
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<ChatMessages> chatMessagesId = new ArrayList<>();
 
-    public List<ChatPaticipants> getChatPaticipantsList() {
-        return chatPaticipantsList;
+    public List<ChatParticipants> getChatPaticipantsList() {
+        return chatParticipantsList;
     }
 
-    public void setChatPaticipantsList(List<ChatPaticipants> chatPaticipantsList) {
-        this.chatPaticipantsList = chatPaticipantsList;
+    public void setChatPaticipantsList(List<ChatParticipants> chatParticipantsList) {
+        this.chatParticipantsList = chatParticipantsList;
     }
 
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
-    private List<ChatPaticipants> chatPaticipantsList = new ArrayList<>();
-
-    public long getCid() {
-        return cid;
-    }
-
-    public void setCid(long cid) {
-        this.cid = cid;
-    }
+    private List<ChatParticipants> chatParticipantsList = new ArrayList<>();
 
     public String getChatMessageId() {
         return chatMessageId;

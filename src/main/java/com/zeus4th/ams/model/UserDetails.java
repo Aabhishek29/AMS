@@ -1,5 +1,7 @@
 package com.zeus4th.ams.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.zeus4th.ams.model.ano.models.SessionList;
 
 import javax.persistence.*;
@@ -9,10 +11,6 @@ import java.util.List;
 @Entity
 @Table(name = "userDetails")
 public class UserDetails {
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",unique = true,nullable = false)
-    private String id;
 
     @Id
     @Column(name = "sessionListId",unique = true,nullable = false)
@@ -38,11 +36,29 @@ public class UserDetails {
     private Boolean deactivateUser;
 
     @OneToMany(mappedBy = "userDetails", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<SessionList> listSessions = new ArrayList<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
+    @JsonBackReference
     private User user;
+
+    public UserDetails(String sessionListId, String createdAt, String updatedAt, String appId, String status, String pofileUrl, Boolean deactivateUser,String userId) {
+        this.sessionListId = sessionListId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.appId = appId;
+        this.status = status;
+        this.pofileUrl = pofileUrl;
+        this.deactivateUser = deactivateUser;
+        user =new User();
+        user.setUserId(userId);
+    }
+
+    public UserDetails() {
+
+    }
 
     public Boolean getDeactivateUser() {
         return deactivateUser;
@@ -69,13 +85,6 @@ public class UserDetails {
         this.appId = appId;
     }
 
-    public String getid() {
-        return id;
-    }
-
-    public void setid(String id) {
-        this.id = id;
-    }
 
     public String getSessionListId() {
         return sessionListId;

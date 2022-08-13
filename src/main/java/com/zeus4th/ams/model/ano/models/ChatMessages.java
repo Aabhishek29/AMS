@@ -1,5 +1,7 @@
 package com.zeus4th.ams.model.ano.models;
 
+import lombok.extern.apachecommons.CommonsLog;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,7 +9,7 @@ import javax.persistence.*;
 public class ChatMessages {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "message_id",nullable = false,unique = true)
     private long messageId;
     @Column(name = "message",nullable = true)
     private String message;

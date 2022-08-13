@@ -1,33 +1,23 @@
-#schema {
-#    query: Query
-##    mutation: Mutations
-#}
-#
-#interface Node{
-#    id : ID
-#}
-#
-#type Query{
-#    allUsers : [Users]
-#}
-#
-#
-#type Users implements Node{
-#    id : ID,
-#    userName : String!,
-#    name:String!,
-#    email : String!,
-#    password : String!,
-#    phone : String,
-#    organizationEmail : String,
-#    createdAt : String,
-#    updatedAt: String,
-#    profileUrl : String,
-#    authenticated: String
-#}
-#
-#type sessionDetails implements Node{
-#    id : ID
-#    sessionId : ID,
-#
-#}
+schema{
+    query: Query
+}
+
+type Query{
+    allUsers : [Users]
+    getUserDetails(userId:String,userName: String) : [Users]
+}
+
+
+type Users {
+    userName : String!,
+    userId: String!,
+    name:String!,
+    email : String!,
+    password : String!,
+    phone : String,
+    organizationEmail : String,
+    createdAt : String,
+    updatedAt: String,
+    profileUrl : String,
+    authenticated: String
+}

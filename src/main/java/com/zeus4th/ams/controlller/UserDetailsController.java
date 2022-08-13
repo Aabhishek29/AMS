@@ -9,7 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -45,29 +53,23 @@ public class UserDetailsController {
         }
     }
 
-    @PostMapping("/allusersdetails")
+    @PostMapping("/allusersdetails" )
     public ResponseEntity<UserDetails> createUserDetails(
-            @RequestParam(name = "appId",defaultValue = "ano",required = false) String appId,
-            @RequestParam(name = "status",defaultValue = "working",required = false) String status,
-            @RequestParam(name = "profileUrl",defaultValue = "vdsbv.jvb",required = false) String profileUrl,
-            @RequestParam(name = "userId",
-                defaultValue = "50dc32e0-069c-4930-a70e-a6ac72029525",
-                    required = false
-            ) String userId
+            @RequestParam("appId") String appId,
+            @RequestParam("status") String status,
+            @RequestParam("profileUrl" ) String profileUrl,
+            @RequestParam("userId") String userId
     ){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
         LocalDateTime now = LocalDateTime.now(zoneid1);
         String newdate = dtf.format(now);
-        List _user = userRepository.findUserByUserId(userId);
-        log.error(_user.get(0).toString());
-        User finalUser = (User) _user.get(0);
         try{
             String sessionListId = UUID.randomUUID().toString();
             log.error("we reach here");
             UserDetails userDetails = userDetailsRepository.
-                    save(new UserDetails(sessionListId,newdate,newdate,appId,status,profileUrl,false,finalUser));
-            return new ResponseEntity<>(userDetails,HttpStatus.CREATED);
+                    save(new UserDetails(sessionListId,newdate,newdate,appId,status,profileUrl,false,userId));
+            return new ResponseEntity<UserDetails>(userDetails,HttpStatus.CREATED);
         }catch (Exception e){
             log.error("there is an error ",e);
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);

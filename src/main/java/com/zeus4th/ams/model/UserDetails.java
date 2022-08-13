@@ -1,5 +1,7 @@
 package com.zeus4th.ams.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.zeus4th.ams.model.ano.models.SessionList;
 
 import javax.persistence.*;
@@ -34,13 +36,15 @@ public class UserDetails {
     private Boolean deactivateUser;
 
     @OneToMany(mappedBy = "userDetails", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<SessionList> listSessions = new ArrayList<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
-    public UserDetails(String sessionListId, String createdAt, String updatedAt, String appId, String status, String pofileUrl, Boolean deactivateUser,User userId) {
+    public UserDetails(String sessionListId, String createdAt, String updatedAt, String appId, String status, String pofileUrl, Boolean deactivateUser,String userId) {
         this.sessionListId = sessionListId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -48,7 +52,8 @@ public class UserDetails {
         this.status = status;
         this.pofileUrl = pofileUrl;
         this.deactivateUser = deactivateUser;
-        this.user = userId;
+        user =new User();
+        user.setUserId(userId);
     }
 
     public UserDetails() {

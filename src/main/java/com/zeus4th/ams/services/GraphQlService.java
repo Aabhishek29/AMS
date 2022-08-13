@@ -31,7 +31,7 @@ public class GraphQlService {
   @Autowired
   private GetUserDataFetcher getUserDataFetcher;
 
-  @Value("classpath:./graphql/users.graphql")
+  @Value("classpath:./graphql/schema.graphql")
   Resource resource;
   private GraphQL graphQL;
 

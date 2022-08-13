@@ -4,7 +4,9 @@ schema{
 
 type Query{
     allUsers : [Users]
+    allUserDetails : [UserDetails]
     getUserDetails(userId:String,userName: String) : [Users]
+    userAppDetails(sessionListId:String) : [UserDetails]
 }
 
 
@@ -20,4 +22,15 @@ type Users {
     updatedAt: String,
     profileUrl : String,
     authenticated: String
+    allUserDetails : [UserDetails]
+}
+
+type UserDetails {
+    sessionListId : String!,
+    createdAt : String!,
+    updatedAt : String!,
+    appId : String!,
+    status : String,
+    profileUrl : String,
+    deactivateUser : String
 }

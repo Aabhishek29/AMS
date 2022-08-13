@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 
+import com.zeus4th.ams.services.datafetcher.AllUsersDetails;
 import com.zeus4th.ams.services.datafetcher.GetUserDataFetcher;
 import com.zeus4th.ams.services.datafetcher.UserDataFetcher;
 import graphql.schema.DataFetcher;
@@ -31,6 +32,8 @@ public class GraphQlService {
   @Autowired
   private GetUserDataFetcher getUserDataFetcher;
 
+  @Autowired
+  private AllUsersDetails allUsersDetails;
   @Value("classpath:./graphql/schema.graphql")
   Resource resource;
   private GraphQL graphQL;
@@ -53,6 +56,7 @@ public class GraphQlService {
     Map<String,DataFetcher> map = new HashMap<>();
     map.put("allUsers",userDataFetcher);
     map.put("getUserDetails",getUserDataFetcher);
+    map.put("allUserDetails",allUsersDetails);
     return RuntimeWiring.newRuntimeWiring()
         .type("Query",
             typeWiring -> typeWiring

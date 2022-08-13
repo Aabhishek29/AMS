@@ -30,7 +30,7 @@ public class UserDetails {
     private String status;
 
     @Column(name = "profile_url")
-    private String pofileUrl;
+    private String profileUrl;
 
     @Column(name = "deactivate_user")
     private Boolean deactivateUser;
@@ -50,7 +50,7 @@ public class UserDetails {
         this.updatedAt = updatedAt;
         this.appId = appId;
         this.status = status;
-        this.pofileUrl = pofileUrl;
+        this.profileUrl = pofileUrl;
         this.deactivateUser = deactivateUser;
         user =new User();
         user.setUserId(userId);
@@ -119,11 +119,11 @@ public class UserDetails {
     }
 
     public String getPofileUrl() {
-        return pofileUrl;
+        return profileUrl;
     }
 
-    public void setPofileUrl(String pofileUrl) {
-        this.pofileUrl = pofileUrl;
+    public void setPofileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 
     public List<SessionList> getListSessions() {

@@ -7,6 +7,8 @@ import java.util.*;
 
 import com.zeus4th.ams.config.LoggingController;
 import com.zeus4th.ams.model.User;
+import com.zeus4th.ams.model.UserDetails;
+import com.zeus4th.ams.repository.UserDetailsRepository;
 import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,11 +27,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserController{
 
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private UserDetailsRepository userDeailsResposity;
 
     // To Display All Users This Method is Invoke
 
@@ -164,4 +168,10 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+//    @Override
+//    public List<User> findAll() {
+//        List<UserDetails> list = userDeailsResposity.findAll();
+//
+//    }
 }

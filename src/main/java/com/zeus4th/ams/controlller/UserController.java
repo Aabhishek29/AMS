@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.zeus4th.ams.config.LoggingController;
 import com.zeus4th.ams.model.User;
 import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,30 +20,38 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 public class UserController {
+
     @Autowired
     UserRepository userRepository;
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String name) {
-        try {
-            List<User> users = new ArrayList<User>();
-            if (name == null)
-                userRepository.findAll().forEach(users::add);
-            else
-                userRepository.findByUserNameEquals(name).forEach(users::add);
-            if (users.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
-        Optional<User> userData = userRepository.findById(id);
+
+
+    // To Display All Users This Method is Invoke
+
+//    @GetMapping("/users")
+//    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String name) {
+//        try {
+//            List<User> users = new ArrayList<User>();
+//            if (name == null)
+//                userRepository.findAll().forEach(users::add);
+//            else
+//                userRepository.findByUserNameEquals(name).forEach(users::add);
+//            if (users.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//            return new ResponseEntity<>(users, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<User> getUserByUserId(@PathVariable("userId") String userId) {
+        Optional<User> userData = userRepository.findByUserId(userId);
+
         if (userData.isPresent()) {
+            System.out.println(userData.get());
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
         } else {
+            System.out.println("There is No value present in database");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -72,6 +81,8 @@ public class UserController {
         }
     }
 
+
+    // Only Applicable for staging URL
     @PostMapping("/users")
     public ResponseEntity<String> createUser(@RequestParam ("userName") String userName,
                                            @RequestParam("name") String name, @RequestParam("email")String email,
@@ -85,22 +96,23 @@ public class UserController {
             String newdate = dtf.format(now);
 
         try {
-
+            String userId = UUID.randomUUID().toString();      // userId generation
+            System.out.println("This is The New UUID "+userId);
             System.out.println("Date:  "+newdate);
             User _user = userRepository
-                    .save(new User(userName,name,email,password,phone,organizationEmail,newdate,newdate,
+                    .save(new User(userId,userName,name,email,password,phone,organizationEmail,newdate,newdate,
                             profileUrl,true, false));
             return new ResponseEntity<>(_user.toString(), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        Optional<User> userData = userRepository.findById(id);
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable("userId") String userId, @RequestBody User user) {
+        Optional<User> userData = userRepository.findByUserId(userId);
         if (userData.isPresent()) {
             User _user = userData.get();
-            _user.setId(user.getId());
+            _user.setUserId(user.getUserId());
             _user.setUserName(user.getUserName());
             _user.setName(user.getName());
             _user.setEmail(user.getEmail());
@@ -119,9 +131,9 @@ public class UserController {
         }
     }
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") String userId) {
         try {
-            userRepository.deleteById(id);
+            userRepository.deleteById(userId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -3,9 +3,13 @@ package com.zeus4th.ams.services;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 
+import com.zeus4th.ams.services.datafetcher.GetUserDataFetcher;
 import com.zeus4th.ams.services.datafetcher.UserDataFetcher;
+import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -16,6 +20,7 @@ import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
+import graphql.schema.DataFetcher;
 import graphql.schema.idl.TypeDefinitionRegistry;
 
 @Service
@@ -23,9 +28,10 @@ public class GraphQlService {
 
   @Autowired
   private UserDataFetcher userDataFetcher;
+  @Autowired
+  private GetUserDataFetcher getUserDataFetcher;
 
-
-  @Value("classpath:./graphql/users.graphql")
+  @Value("classpath:./graphql/schema.graphql")
   Resource resource;
   private GraphQL graphQL;
 
@@ -44,10 +50,14 @@ public class GraphQlService {
   }
 
   private RuntimeWiring buildRuntimeWiring() {
+    Map<String,DataFetcher> map = new HashMap<>();
+    map.put("allUsers",userDataFetcher);
+    map.put("getUserDetails",getUserDataFetcher);
     return RuntimeWiring.newRuntimeWiring()
         .type("Query",
             typeWiring -> typeWiring
-                .dataFetcher("allUsers", userDataFetcher))
+                    .dataFetchers(map)
+        )
         .build();
   }
 

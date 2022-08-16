@@ -13,18 +13,12 @@ import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
+@CrossOrigin(origins = {"http://localhost:8080","https://portal-ams.herokuapp.com","http://localhost:8080","https://amsportalapp.herokuapp.com"},
+        allowedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"},
+        allowCredentials = "true")
 @RestController
 @RequestMapping("/api")
 public class UserController{
@@ -94,7 +88,7 @@ public class UserController{
 
     // Only Applicable for staging URL
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestParam ("userName") String userName,
+    public ResponseEntity<String> createUser(@RequestParam ("userName") String userName,
                                            @RequestParam("name") String name, @RequestParam("email")String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("phone") long phone,
@@ -112,7 +106,7 @@ public class UserController{
             User _user = userRepository
                     .save(new User(userId,userName,name,email,password,phone,organizationEmail,newdate,newdate,
                             profileUrl,true, false));
-            return new ResponseEntity<>(_user, HttpStatus.CREATED);
+            return new ResponseEntity<>(_user.toString(), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

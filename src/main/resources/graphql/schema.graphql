@@ -1,0 +1,36 @@
+schema{
+    query: Query
+}
+
+type Query{
+    allUsers : [Users]
+    allUserDetails : [UserDetails]
+    getUserDetails(userId:String,userName: String) : [Users]
+    userAppDetails(sessionListId:String) : [UserDetails]
+}
+
+
+type Users {
+    userName : String!,
+    userId: String!,
+    name:String!,
+    email : String!,
+    password : String!,
+    phone : String,
+    organizationEmail : String,
+    createdAt : String,
+    updatedAt: String,
+    profileUrl : String,
+    authenticated: String
+    allUserDetails : [UserDetails]
+}
+
+type UserDetails {
+    sessionListId : String!,
+    createdAt : String!,
+    updatedAt : String!,
+    appId : String!,
+    status : String,
+    profileUrl : String,
+    deactivateUser : String
+}

@@ -57,6 +57,7 @@ public class GraphQlService {
     map.put("allUsers",userDataFetcher);
     map.put("getUserDetails",getUserDataFetcher);
     map.put("allUserDetails",allUsersDetails);
+//    map.put("getUserDetails",allUsersDetails);
     return RuntimeWiring.newRuntimeWiring()
         .type("Query",
             typeWiring -> typeWiring

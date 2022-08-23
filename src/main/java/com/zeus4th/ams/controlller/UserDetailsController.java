@@ -20,7 +20,6 @@ import java.util.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
 public class UserDetailsController {
 
     @Autowired
@@ -31,16 +30,20 @@ public class UserDetailsController {
     @GetMapping("/allusersdetails")
     public ResponseEntity<List<UserDetails>> getAllUsersDetails(@RequestParam(required = false) String sessionDeatilId){
         try{
+
             List<UserDetails> users = new ArrayList<UserDetails>();
             if(sessionDeatilId == null){
                 userDetailsRepository.findAll().forEach(users::add);
+                log.error(String.valueOf(users.get(0)));
             }else{
                 userDetailsRepository.findUserDetailsBySessionListId(sessionDeatilId).forEach(users::add);
             }
             if(users.isEmpty()){
+                log.error("Yes I am Empty",users.get(0));
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(HttpStatus.OK);
+            log.error("Yes I am OK");
+            return new ResponseEntity<>(users,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }

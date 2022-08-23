@@ -20,9 +20,20 @@ public class ChatMessages {
     @Column(name = "sender",nullable = false)
     private String sender;
 
+    @Column(name = "emotion")
+    private String emotion;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "session_details_chat_message_id", nullable = false)
     private SessionDetails sessionDetails;
+
+    public String getEmotion() {
+        return emotion;
+    }
+
+    public void setEmotion(String emotion) {
+        this.emotion = emotion;
+    }
 
     public SessionDetails getSessionDetails() {
         return sessionDetails;

@@ -30,5 +30,39 @@ type UserDetails {
     appId : String!,
     status : String,
     profileUrl : String,
-    deactivateUser : String
+    deactivateUser : String,
+    listSessions : [SessionList]
+}
+
+type SessionList {
+    id : ID,
+    sessionId : String!,
+    sessionDetails : SessionDetails
+}
+
+type ChatParticipants {
+    pid : ID,
+    participant : String,
+    sessionDetails : SessionDetails
+}
+
+type SessionDetails {
+    chatMessageId : String,
+    createdAt : String,
+    updatedAt : String,
+    chatType : String,
+    groupProfileUrl : String,
+    connectionType : String,
+    sessionList : SessionDetails
+    chatMessagesId : [ChatMessages]
+}
+
+type ChatMessages {
+    messageId : ID,
+    message : String,
+    mimeType : String,
+    createdAt : String,
+    sender : String,
+    emotion : String,
+    SessionDetails : SessionDetails
 }

@@ -3,9 +3,8 @@ schema{
 }
 
 type Query{
-    allUsers : [Users]
-    allUserDetails : [UserDetails]
-    getUserDetails(userId:String,userName: String) : [Users]
+    allUsers(userId:String) : [Users]
+    userDetails : [UserDetails]
     userAppDetails(sessionListId:String) : [UserDetails]
 }
 
@@ -22,7 +21,7 @@ type Users {
     updatedAt: String,
     profileUrl : String,
     authenticated: String
-    allusersdetails : [UserDetails]
+    userDetails : [UserDetails]
 }
 
 type UserDetails {

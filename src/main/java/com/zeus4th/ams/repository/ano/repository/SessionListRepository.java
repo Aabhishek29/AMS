@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SessionListDataFetcher extends JpaRepository<SessionList, Long> {
+public interface SessionListRepository extends JpaRepository<SessionList, Long> {
 
     List<SessionList> findById(long id);
 }

@@ -5,6 +5,7 @@ schema{
 type Query{
     allUsers(userId:String) : [Users]
     userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
+    sessionList : [SessionList]
 }
 
 

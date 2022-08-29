@@ -1,12 +1,17 @@
 schema{
     query: Query
+    mutation: Mutation
 }
 
 type Query{
     allUsers(userId:String) : [Users]
     userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
+    sessionDetails : [SessionDetails]
 }
 
+type Mutation {
+    createUsers(userName:String!,name:String!,email:String,password:String!,phone:String,organizationEmail:String,profileUrl:String) : Users
+}
 
 type Users {
     userName : String!,
@@ -30,5 +35,36 @@ type UserDetails {
     appId : String!,
     status : String,
     profileUrl : String,
-    deactivateUser : String
+    deactivateUser : String,
+    sessionDetails : [SessionDetails]
+}
+
+
+
+type ChatParticipants {
+    pid : ID,
+    participant : String,
+    sessionDetails : SessionDetails
+}
+
+type SessionDetails {
+    sessionId : String,
+    createdAt : String,
+    updatedAt : String,
+    chatType : String,
+    groupProfileUrl : String,
+    connectionType : String,
+    creator : String,
+    participants : [String],
+    chatMessagesId : [ChatMessages]
+}
+
+type ChatMessages {
+    messageId : ID,
+    message : String,
+    mimeType : String,
+    createdAt : String,
+    sender : String,
+    emotion : String,
+    SessionDetails : SessionDetails
 }

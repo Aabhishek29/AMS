@@ -41,10 +41,10 @@ type UserDetails {
 
 
 
-type ChatParticipants {
-    pid : ID,
-    participant : String,
-    sessionDetails : SessionDetails
+type Participants {
+    participantId : String,
+    userId : String,
+    sessionId : String
 }
 
 type SessionDetails {
@@ -55,7 +55,7 @@ type SessionDetails {
     groupProfileUrl : String,
     connectionType : String,
     creator : String,
-    participants : [String],
+    participantsList : [Participants],
     chatMessagesId : [ChatMessages]
 }
 

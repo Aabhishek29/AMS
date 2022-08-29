@@ -4,6 +4,7 @@ import com.zeus4th.ams.model.UserDetails;
 import com.zeus4th.ams.model.ano.models.Participants;
 import com.zeus4th.ams.model.ano.models.SessionDetails;
 import com.zeus4th.ams.repository.UserDetailsRepository;
+import com.zeus4th.ams.repository.ano.repository.ParticipantsRepository;
 import com.zeus4th.ams.repository.ano.repository.SessionDetailsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class SessionDetailsController {
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
+
+    @Autowired
+    private ParticipantsRepository participantsRepository;
 
     @GetMapping("allsessiondetails")
     public ResponseEntity<String> getAllSessionDetails(
@@ -68,9 +72,11 @@ public class SessionDetailsController {
             log.error("Line 70");
             String sessionId = UUID.randomUUID().toString();
             List<Participants> participantsList = new ArrayList<>();
-            participantsList.add(new Participants(creatorId+sessionId,creatorId,sessionId));
+            Participants participants = participantsRepository.save(new Participants(creatorId+sessionId,creatorId,sessionId));
+            participantsList.add(participants);
             for (String s : receiverId) {
-                participantsList.add(new Participants(s+sessionId,s, sessionId));
+                participants = participantsRepository.save(new Participants(s+sessionId,s, sessionId));
+                participantsList.add(participants);
             }
             UserDetails userDetails = userDetailsRepository.findBySessionListId(sessionListId).get(0);
             log.error("Line 73");

@@ -28,7 +28,8 @@ public class UserDetailsController {
     private UserRepository userRepository;
 
     @GetMapping("/allusersdetails")
-    public ResponseEntity<List<UserDetails>> getAllUsersDetails(@RequestParam(required = false) String sessionDeatilId){
+    public ResponseEntity<List<UserDetails>> getAllUsersDetails(@RequestParam(required = false)
+                                                                    String sessionDeatilId){
         try{
 
             List<UserDetails> users = new ArrayList<UserDetails>();

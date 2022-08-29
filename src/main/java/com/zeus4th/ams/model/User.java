@@ -1,17 +1,27 @@
 package com.zeus4th.ams.model;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 //@EntityListeners(User.class)
 @Table(name = "users")
 public class User {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(name = "userId",unique = true,nullable = false)
+    private String userId;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<UserDetails> userDetails = new ArrayList<>();
 
     @Column(name = "user_name", length = 50, unique = true,nullable = false)
     private  String userName;
@@ -31,21 +41,16 @@ public class User {
     private  String updatedAt;
     @Column(name = "profile_url")
     private  String profileUrl ;
+
+    // authenticated indicate that user is granted by AMS portal
     @Column(name = "authenticated", nullable = false)
     private Boolean authenticated ;
 
+    // Super User for AMS portal
     @Column(name = "super_user")
     private Boolean superUser;
 
     public User() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
-        LocalDateTime now = LocalDateTime.now(zoneid1);
-        String newdate = dtf.format(now);
-        this.createdAt = newdate;
-        this.updatedAt = newdate;
-        this.authenticated =true;
-        this.superUser = false;
 
     }
 
@@ -62,8 +67,9 @@ public class User {
 //        this.profileUrl = profileUrl;
 //        this.authenticated = authenticated;
 //    }
-    public User( String userName,String name, String email, String password, long phone, String organizationEmail,
+    public User( String userId, String userName,String name, String email, String password, long phone, String organizationEmail,
                  String createdAt,String updatedAt, String profileUrl, Boolean authenticated, Boolean superUser) {
+        this.userId = userId;
         this.userName = userName;
         this.name = name;
         this.email = email;
@@ -77,15 +83,22 @@ public class User {
         this.superUser = superUser;
     }
 
-
-    public long getId() {
-        return id;
+    public List<UserDetails> getUserDetails() {
+        return userDetails;
     }
 
-
-    public void setId(long id) {
-        this.id = id;
+    public void setUserDetails(List<UserDetails> userDetails) {
+        this.userDetails = userDetails;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -207,5 +220,18 @@ public class User {
 //        String newdate = dtf.format(now);
 //        return newdate;
 //    }
+
+    @PrePersist
+    public void initializedUuid() {
+        this.userId = UUID.randomUUID().toString();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
+        LocalDateTime now = LocalDateTime.now(zoneid1);
+        String newdate = dtf.format(now);
+        this.createdAt = newdate;
+        this.updatedAt = newdate;
+        this.authenticated =true;
+        this.superUser = false;
+    }
 
 }

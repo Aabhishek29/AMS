@@ -1,15 +1,21 @@
-schema {
+schema{
     query: Query
-#    mutation: Mutations
+    mutation: Mutation
 }
 
-interface Node{
-    id : ID
+type Query{
+    allUsers(userId:String) : [Users]
+    userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
+    sessionDetails : [SessionDetails]
 }
 
-type Users implements Node{
-    id : ID,
+type Mutation {
+    createUsers(userName:String!,name:String!,email:String,password:String!,phone:String,organizationEmail:String,profileUrl:String) : Users
+}
+
+type Users {
     userName : String!,
+    userId: String!,
     name:String!,
     email : String!,
     password : String!,
@@ -19,8 +25,46 @@ type Users implements Node{
     updatedAt: String,
     profileUrl : String,
     authenticated: String
+    userDetails : [UserDetails]
 }
 
-type sessionDetails implements Node{
-    id : ID
+type UserDetails {
+    sessionListId : String!,
+    createdAt : String!,
+    updatedAt : String!,
+    appId : String!,
+    status : String,
+    profileUrl : String,
+    deactivateUser : String,
+    sessionDetails : [SessionDetails]
+}
+
+
+
+type Participants {
+    participantId : String,
+    userId : String,
+    sessionId : String
+}
+
+type SessionDetails {
+    sessionId : String,
+    createdAt : String,
+    updatedAt : String,
+    chatType : String,
+    groupProfileUrl : String,
+    connectionType : String,
+    creator : String,
+    participantsList : [Participants],
+    chatMessagesId : [ChatMessages]
+}
+
+type ChatMessages {
+    messageId : ID,
+    message : String,
+    mimeType : String,
+    createdAt : String,
+    sender : String,
+    emotion : String,
+    SessionDetails : SessionDetails
 }

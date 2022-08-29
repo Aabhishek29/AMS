@@ -19,9 +19,6 @@ public class SessionDetailsDataFetcher implements DataFetcher<List<SessionDetail
 
     @Override
     public List<SessionDetails> get(DataFetchingEnvironment environment) throws Exception {
-        log.error("Hello world");
-        System.out.println("We CAll This function");
-        log.error(sessionDetailsRepository.findAll().toString());
         return sessionDetailsRepository.findAll();
     }
 }

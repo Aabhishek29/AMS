@@ -36,7 +36,7 @@ public class SessionDetailsController {
     private ParticipantsRepository participantsRepository;
 
     @GetMapping("allsessiondetails")
-    public ResponseEntity<String> getAllSessionDetails(
+    public ResponseEntity<List<SessionDetails>> getAllSessionDetails(
             @RequestParam(required = false) String chatMessageId
     ){
         try{
@@ -46,7 +46,8 @@ public class SessionDetailsController {
                 log.info("No Data found in database getAllSessionDetails");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }else{
-                return new ResponseEntity<>(sessionDetailsList.get(0).toString(),HttpStatus.OK);
+                log.error(sessionDetailsList.get(0).getSessionId().toString());
+                return new ResponseEntity<>(sessionDetailsList,HttpStatus.OK);
             }
         }catch (Exception e){
             log.error("There is some issue while fetching data in getAllSessionDetails:",e);

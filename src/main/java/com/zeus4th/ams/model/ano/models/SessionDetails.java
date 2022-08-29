@@ -59,4 +59,84 @@ public class SessionDetails {
         this.participantsList = participantsList;
         this.userDetails = userDetails;
     }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getChatType() {
+        return chatType;
+    }
+
+    public void setChatType(String chatType) {
+        this.chatType = chatType;
+    }
+
+    public String getGroupProfileUrl() {
+        return groupProfileUrl;
+    }
+
+    public void setGroupProfileUrl(String groupProfileUrl) {
+        this.groupProfileUrl = groupProfileUrl;
+    }
+
+    public String getConnectionType() {
+        return connectionType;
+    }
+
+    public void setConnectionType(String connectionType) {
+        this.connectionType = connectionType;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public List<Participants> getParticipantsList() {
+        return participantsList;
+    }
+
+    public void setParticipantsList(List<Participants> participantsList) {
+        this.participantsList = participantsList;
+    }
+
+    public List<ChatMessages> getChatMessagesId() {
+        return chatMessagesId;
+    }
+
+    public void setChatMessagesId(List<ChatMessages> chatMessagesId) {
+        this.chatMessagesId = chatMessagesId;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
 }

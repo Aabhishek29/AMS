@@ -50,7 +50,6 @@ public class UserController{
     @GetMapping("/users/{userId}")
     public ResponseEntity<User> getUserByUserId(@PathVariable("userId") String userId) {
         Optional<User> userData = userRepository.findByUserId(userId);
-
         if (userData.isPresent()) {
             System.out.println(userData.get());
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);

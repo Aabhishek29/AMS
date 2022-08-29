@@ -35,13 +35,16 @@ public class SessionDetailsController {
     @Autowired
     private ParticipantsRepository participantsRepository;
 
+
+    // TODO need to re check this Method
+    // TODO Get Api for AllSessionDetails Not Working
+
     @GetMapping("allsessiondetails")
     public ResponseEntity<List<SessionDetails>> getAllSessionDetails(
             @RequestParam(required = false) String chatMessageId
     ){
         try{
-            List<SessionDetails> sessionDetailsList = new ArrayList<>();
-            sessionDetailsRepository.findAll().forEach(sessionDetailsList::add);
+            List<SessionDetails> sessionDetailsList = new ArrayList<>(sessionDetailsRepository.findAll());
             if(sessionDetailsList.isEmpty()){
                 log.info("No Data found in database getAllSessionDetails");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

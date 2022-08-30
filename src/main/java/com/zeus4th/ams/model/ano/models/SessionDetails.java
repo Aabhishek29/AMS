@@ -1,5 +1,7 @@
 package com.zeus4th.ams.model.ano.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.zeus4th.ams.model.User;
 import com.zeus4th.ams.model.UserDetails;
 import kotlin.Pair;
 
@@ -35,20 +37,22 @@ public class SessionDetails {
     @Column(name = "creater", nullable = false)
     private String creator;    // stores userID of owner
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<Participants> participantsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<ChatMessages> chatMessagesId = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_details_session_list_id", nullable = false)
+    @JsonBackReference
     private UserDetails userDetails;
 
 
     public SessionDetails() {
     }
 
-    public SessionDetails(String sessionId, String createdAt, String updatedAt, String chatType, String groupProfileUrl, String connectionType, String creator, List<Participants> participantsList, UserDetails userDetails) {
+    public SessionDetails(String sessionId, String createdAt, String updatedAt, String chatType, String groupProfileUrl, String connectionType, String creator, String sessionListId) {
         this.sessionId = sessionId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -56,8 +60,8 @@ public class SessionDetails {
         this.groupProfileUrl = groupProfileUrl;
         this.connectionType = connectionType;
         this.creator = creator;
-        this.participantsList = participantsList;
-        this.userDetails = userDetails;
+        userDetails = new UserDetails();
+        userDetails.setSessionListId(sessionListId);
     }
 
     public String getSessionId() {

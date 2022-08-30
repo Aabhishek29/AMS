@@ -16,12 +16,18 @@ public class Participants {
     @Column(name = "sessionId",nullable = false)
     private String sessionId;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "session_details_participants_list",nullable = false)
+    private SessionDetails sessionDetails;
+
     public Participants() { }
 
     public Participants(String participantId, String userId, String sessionId) {
         this.participantId = participantId;
         this.userId = userId;
         this.sessionId = sessionId;
+        sessionDetails = new SessionDetails();
+        sessionDetails.setSessionId(sessionId);
     }
 
     public String getParticipantId() {

@@ -30,6 +30,12 @@ public class AllUserDataFetcher implements DataFetcher<List<User>>{
     String userId = null;
     try {
        userId = environment.getArgument("userId");
+       if(userId==null){
+         userId = environment.getArgument("phone");
+         if(userId!=null){
+           return userRepository.findByPhone(Long.parseLong(userId));
+         }
+       }
     }catch (Exception e){
       log.info("No UserId send with query");
     }

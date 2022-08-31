@@ -10,8 +10,8 @@ public class ChatMessages {
 
     @Id
     @Column(name = "message_id",nullable = false,unique = true)
-    private long messageId;
-    @Column(name = "message",nullable = true)
+    private String messageId;
+    @Column(name = "message",nullable = false)
     private String message;
     @Column(name = "mimeType",nullable = false)
     private String mimeType;
@@ -26,6 +26,21 @@ public class ChatMessages {
     @ManyToOne(optional = false)
     @JoinColumn(name = "session_details_chat_message_id", nullable = false)
     private SessionDetails sessionDetails;
+
+    public ChatMessages(){
+
+    }
+
+    public ChatMessages(String messageId, String message, String mimeType, String createdAt, String sender, String emotion, String sessionId) {
+        this.messageId = messageId;
+        this.message = message;
+        this.mimeType = mimeType;
+        this.createdAt = createdAt;
+        this.sender = sender;
+        this.emotion = emotion;
+        sessionDetails = new SessionDetails();
+        sessionDetails.setSessionId(sessionId);
+    }
 
     public String getEmotion() {
         return emotion;
@@ -43,11 +58,11 @@ public class ChatMessages {
         this.sessionDetails = sessionDetails;
     }
 
-    public long getMessageId() {
+    public String getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(long messageId) {
+    public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
 

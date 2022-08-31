@@ -18,7 +18,7 @@ public class AmsGraphQlController {
     @Autowired
     private GraphQlService graphQLService;
 
-    @GetMapping("/graphql")
+    @GetMapping ("/graphql")
     public ResponseEntity<Object> getAllProperty(@RequestBody String query) {
         ExecutionResult execute = graphQLService.executeGraphQL(query);
         return new ResponseEntity<>(execute, HttpStatus.OK);

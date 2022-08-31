@@ -4,9 +4,10 @@ schema{
 }
 
 type Query{
-    allUsers(userId:String) : [Users]
+    allUsers(userId:String,phone:String) : [Users]
     userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
     sessionDetails : [SessionDetails]
+    chatMessages : [ChatMessages]
 }
 
 type Mutation {

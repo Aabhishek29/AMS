@@ -1,7 +1,10 @@
 package com.zeus4th.ams.controlller.anocontroller;
 
+import com.zeus4th.ams.model.UserDetails;
 import com.zeus4th.ams.model.ano.models.Participants;
 import com.zeus4th.ams.model.ano.models.SessionDetails;
+import com.zeus4th.ams.repository.UserDetailsRepository;
+import com.zeus4th.ams.repository.UserRepository;
 import com.zeus4th.ams.repository.ano.repository.ParticipantsRepository;
 import com.zeus4th.ams.repository.ano.repository.SessionDetailsRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +27,12 @@ public class SessionDetailsController {
     @Autowired
     private SessionDetailsRepository sessionDetailsRepository;
     @Autowired
+    private UserDetailsRepository userDetailsRepository;
+    @Autowired
     private ParticipantsRepository participantsRepository;
+    @Autowired
+    private UserRepository userRepository;
+
 
     @GetMapping("allsessiondetails")
     public ResponseEntity<List<SessionDetails>> getAllSessionDetails(
@@ -68,6 +76,8 @@ public class SessionDetailsController {
             participantsList.add(participants);
             for (String s : receiverId) {
                 participants = participantsRepository.save(new Participants(s+sessionId,s, sessionId));
+//                UserDetails reciverSessionId = userDetailsRepository.findByUser(userRepository.findUserByUserId(s).get(0)).get(0);
+//                reciverSessionId.setSessionListId();
                 participantsList.add(participants);
             }
             sessionDetails.setParticipantsList(participantsList);

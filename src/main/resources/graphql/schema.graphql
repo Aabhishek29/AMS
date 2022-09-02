@@ -3,6 +3,7 @@ schema{
     mutation: Mutation
 }
 
+
 type Query{
     allUsers(userId:String,phone:String) : [Users]
     userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]

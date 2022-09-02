@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import com.zeus4th.ams.services.datafetcher.AllUsersDetailsDataFetcher;
 import com.zeus4th.ams.services.datafetcher.AllUserDataFetcher;
 import com.zeus4th.ams.services.datafetcher.ano.datafetchers.ChatMessageDataFetcher;
+import com.zeus4th.ams.services.datafetcher.ano.datafetchers.ParticipantsDataFetcher;
 import com.zeus4th.ams.services.datafetcher.ano.datafetchers.SessionDetailsDataFetcher;
 import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class GraphQlService {
 
   @Autowired
   private SessionDetailsDataFetcher sessionDetailsDataFetcher;
-
+  @Autowired
+  private ParticipantsDataFetcher participantsDataFetcher;
   @Autowired
   private ChatMessageDataFetcher chatMessageDataFetcher;
   @Value("classpath:./graphql/schema.graphql")
@@ -60,6 +62,7 @@ public class GraphQlService {
     map.put("userDetails", allUsersDetailsDataFetcher);
     map.put("sessionDetails",sessionDetailsDataFetcher);
     map.put("chatMessages",chatMessageDataFetcher);
+    map.put("participants",participantsDataFetcher);
     return RuntimeWiring.newRuntimeWiring()
         .type("Query",
             typeWiring -> typeWiring

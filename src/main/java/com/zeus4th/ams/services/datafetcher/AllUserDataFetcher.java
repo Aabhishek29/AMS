@@ -44,7 +44,7 @@ public class AllUserDataFetcher implements DataFetcher<List<User>>{
       return userRepository.findAll();
     }
     List<User> finalAnswer = new ArrayList<>();
-    User user = userRepository.findUserByUserId(userId).get(0);
+    User user = userRepository.findUserByUserId(userId);
     List<UserDetails> ud  = new ArrayList<>();
     try {
       ud = userDetailsRepository.findByUser(user);

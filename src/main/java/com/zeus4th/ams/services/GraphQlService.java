@@ -12,6 +12,7 @@ import com.zeus4th.ams.services.datafetcher.ano.datafetchers.ChatMessageDataFetc
 import com.zeus4th.ams.services.datafetcher.ano.datafetchers.ParticipantsDataFetcher;
 import com.zeus4th.ams.services.datafetcher.ano.datafetchers.SessionDetailsDataFetcher;
 import graphql.schema.DataFetcher;
+import graphql.schema.visibility.NoIntrospectionGraphqlFieldVisibility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -53,6 +54,7 @@ public class GraphQlService {
     RuntimeWiring runtimeWiring = buildRuntimeWiring();
     GraphQLSchema graphQLSchema
         = new SchemaGenerator().makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
+
     graphQL = GraphQL.newGraphQL(graphQLSchema).schema(graphQLSchema).build();
   }
 
@@ -67,7 +69,7 @@ public class GraphQlService {
         .type("Query",
             typeWiring -> typeWiring
                     .dataFetchers(map)
-        )
+        ).fieldVisibility(NoIntrospectionGraphqlFieldVisibility.NO_INTROSPECTION_FIELD_VISIBILITY)
         .build();
   }
 

@@ -65,14 +65,14 @@ public class SessionDetailsController {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
         LocalDateTime now = LocalDateTime.now(zoneid1);
-        String newdate = dtf.format(now);
+        String createdAt = dtf.format(now);
 
         try {
 
             String sessionId = UUID.randomUUID().toString();   // sessionId created
 
             // session Saved for creator in sessionDetails
-            SessionDetails sessionDetails = sessionDetailsRepository.save(new SessionDetails(sessionId,newdate,newdate,chatType,groupProfileUrl,connectionType,creatorId,sessionListId));
+            SessionDetails sessionDetails = sessionDetailsRepository.save(new SessionDetails(sessionId,createdAt,createdAt,chatType,groupProfileUrl,connectionType,creatorId,sessionListId));
 
             // participants added to participants list
 

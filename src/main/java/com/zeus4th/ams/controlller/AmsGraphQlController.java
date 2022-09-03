@@ -24,6 +24,12 @@ public class AmsGraphQlController {
         return new ResponseEntity<>(execute, HttpStatus.OK);
     }
 
+    @PostMapping ("/graphql")
+    public ResponseEntity<Object> seeAllProperty(@RequestBody String query) {
+        ExecutionResult execute = graphQLService.executeGraphQL(query);
+        return new ResponseEntity<>(execute, HttpStatus.OK);
+    }
+
 //    @PostMapping("graphql")
 //    public GraphQLSchema postAllProperty(@RequestBody String mutation){
 //        return SchemaParser.newParser()

@@ -53,7 +53,7 @@ public class GraphQlService {
     RuntimeWiring runtimeWiring = buildRuntimeWiring();
     GraphQLSchema graphQLSchema
         = new SchemaGenerator().makeExecutableSchema(typeDefinitionRegistry, runtimeWiring);
-    graphQL = GraphQL.newGraphQL(graphQLSchema).build();
+    graphQL = GraphQL.newGraphQL(graphQLSchema).schema(graphQLSchema).build();
   }
 
   private RuntimeWiring buildRuntimeWiring() {

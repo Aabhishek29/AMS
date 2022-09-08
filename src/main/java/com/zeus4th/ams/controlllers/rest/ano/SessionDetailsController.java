@@ -1,7 +1,9 @@
-package com.zeus4th.ams.controlller.anocontroller;
+package com.zeus4th.ams.controlllers.rest.ano;
 
 import com.zeus4th.ams.model.ano.models.Participants;
 import com.zeus4th.ams.model.ano.models.SessionDetails;
+import com.zeus4th.ams.repository.UserDetailsRepository;
+import com.zeus4th.ams.repository.UserRepository;
 import com.zeus4th.ams.repository.ano.repository.ParticipantsRepository;
 import com.zeus4th.ams.repository.ano.repository.SessionDetailsRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +26,12 @@ public class SessionDetailsController {
     @Autowired
     private SessionDetailsRepository sessionDetailsRepository;
     @Autowired
+    private UserDetailsRepository userDetailsRepository;
+    @Autowired
     private ParticipantsRepository participantsRepository;
+    @Autowired
+    private UserRepository userRepository;
+
 
     @GetMapping("allsessiondetails")
     public ResponseEntity<List<SessionDetails>> getAllSessionDetails(
@@ -54,20 +61,30 @@ public class SessionDetailsController {
             @RequestParam("receiver") List<String> receiverId,
             @RequestParam("sessionListId") String sessionListId
     ){
-        log.error("Line 64");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
         LocalDateTime now = LocalDateTime.now(zoneid1);
-        String newdate = dtf.format(now);
+        String createdAt = dtf.format(now);
+
         try {
 
-            String sessionId = UUID.randomUUID().toString();
-            SessionDetails sessionDetails = sessionDetailsRepository.save(new SessionDetails(sessionId,newdate,newdate,chatType,groupProfileUrl,connectionType,creatorId,sessionListId));
+            String sessionId = UUID.randomUUID().toString();   // sessionId created
+
+            // session Saved for creator in sessionDetails
+            SessionDetails sessionDetails = sessionDetailsRepository.save(new SessionDetails(sessionId,createdAt,createdAt,chatType,groupProfileUrl,connectionType,creatorId,sessionListId));
+
+            // participants added to participants list
+
+            // sessionDetails need to pushed in UserDetails for both creator and receivers
             List<Participants> participantsList = new ArrayList<>();
             Participants participants = participantsRepository.save(new Participants(creatorId+sessionId,creatorId,sessionId));
             participantsList.add(participants);
-            for (String s : receiverId) {
-                participants = participantsRepository.save(new Participants(s+sessionId,s, sessionId));
+            for (String userId : receiverId) {
+                participants = participantsRepository.save(new Participants(userId+sessionId,userId, sessionId));
+//                UserDetails = userDetailsRepository.findUserDetailsByUserAndAppId(userRepository.findUserByUserId(userId),"ano");
+//                List<SessionDetails> sessionDetails1 = userDetails.getListSessions();
+//                sessionDetails1.add(sessionDetails);
+//                userDetails.setListSessions(sessionDetails1);
                 participantsList.add(participants);
             }
             sessionDetails.setParticipantsList(participantsList);

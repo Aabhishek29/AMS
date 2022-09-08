@@ -1,6 +1,5 @@
-package com.zeus4th.ams.controlller.anocontroller;
+package com.zeus4th.ams.controlllers.rest.ano;
 
-import com.zeus4th.ams.model.UserDetails;
 import com.zeus4th.ams.model.ano.models.Participants;
 import com.zeus4th.ams.model.ano.models.SessionDetails;
 import com.zeus4th.ams.repository.UserDetailsRepository;

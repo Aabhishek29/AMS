@@ -1,13 +1,11 @@
-package com.zeus4th.ams.controlller;
+package com.zeus4th.ams.controlllers.rest;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import com.zeus4th.ams.config.LoggingController;
 import com.zeus4th.ams.model.User;
-import com.zeus4th.ams.model.UserDetails;
 import com.zeus4th.ams.repository.UserDetailsRepository;
 import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {"http://localhost:8080","https://portal-ams.herokuapp.com","http://localhost:8080","https://amsportalapp.herokuapp.com"},
         allowedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"},
         allowCredentials = "true")
-@RestController
 @RequestMapping("/api")
 public class UserController{
 

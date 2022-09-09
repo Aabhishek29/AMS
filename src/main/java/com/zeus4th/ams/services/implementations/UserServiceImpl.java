@@ -31,4 +31,19 @@ public class UserServiceImpl implements UserServices {
     public User getUserById(String userId) {
         return userRepository.findUserByUserId(userId);
     }
+
+    @Override
+    public List<User> getUserByPhone(Long phone) {
+        return userRepository.findByPhone(phone);
+    }
+
+    @Override
+    public List<User> getAllAuthenticatedUsers() {
+        return userRepository.findByAuthenticated(true);
+    }
+
+    @Override
+    public List<User> getUsersByOrganizationEmail(String organizationEmail) {
+        return userRepository.findByOrganizationEmail(organizationEmail);
+    }
 }

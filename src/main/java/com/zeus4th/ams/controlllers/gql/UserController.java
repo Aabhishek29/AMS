@@ -56,7 +56,16 @@ public class UserController {
     }
 
     @QueryMapping("allUsers")
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers(
+            @Argument String userId,
+            @Argument String phone,
+            @Argument String organizationEmail
+    ){
         return userServices.getAllUsers();
+    }
+
+    @QueryMapping("allAuthenticatedUsers")
+    public List<User> allAuthenticatedUsers(){
+        return userServices.getAllAuthenticatedUsers();
     }
 }

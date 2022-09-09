@@ -4,7 +4,8 @@ schema{
 }
 
 type Query{
-    allUsers : [Users]
+    allUsers(userId: String,phone: String,email: String,organizationEmail: String) : [Users]
+    allAuthenticatedUsers : [Users]
     userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
     sessionDetails : [SessionDetails]
     chatMessages : [ChatMessages]

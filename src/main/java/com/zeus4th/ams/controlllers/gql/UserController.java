@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@CrossOrigin(origins = {"http://localhost:8009"},
+@CrossOrigin(origins = {"http://localhost:8080"},
         allowedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"},
         allowCredentials = "true")
 public class UserController {

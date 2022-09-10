@@ -12,4 +12,10 @@ public interface UserServices {
 
     User getUserById(String userId);
 
+    List<User> getAllAuthenticatedUsers();
+
+    List<User> getUsersByOrganizationEmail(String organizationEmail);
+
+    List<User> getUserByPhone(Long phone);
+
 }

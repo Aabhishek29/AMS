@@ -1,4 +1,4 @@
-package com.zeus4th.ams.services.implementations;
+package com.zeus4th.ams.implementations;
 
 import com.zeus4th.ams.model.User;
 import com.zeus4th.ams.repository.UserRepository;

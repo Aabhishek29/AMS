@@ -1,4 +1,4 @@
-package com.zeus4th.ams.services.implementations;
+package com.zeus4th.ams.implementations;
 
 import com.zeus4th.ams.model.ano.models.AnoyUser;
 import com.zeus4th.ams.repository.ano.repository.AnoyUserRepository;

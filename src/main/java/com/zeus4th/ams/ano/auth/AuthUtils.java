@@ -1,4 +1,4 @@
-package com.zeus4th.ams.auth.ano;
+package com.zeus4th.ams.ano.auth;
 
 import com.zeus4th.ams.model.User;
 import com.zeus4th.ams.repository.UserRepository;

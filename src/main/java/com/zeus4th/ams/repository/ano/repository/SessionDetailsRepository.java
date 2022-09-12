@@ -8,9 +8,8 @@ import java.util.List;
 
 public interface SessionDetailsRepository extends JpaRepository<SessionDetails, String> {
 
-    @NotNull
-    @Override
-    List<SessionDetails> findAll();
+
+    List<SessionDetails> findBySessionId(String sessionId);
 
 
 }

@@ -77,7 +77,7 @@ public class SessionDetailsController {
             for (String s : receiverId) {
                 participants = participantsRepository.save(new Participants(s+sessionId,s, sessionId));
 //                UserDetails reciverSessionId = userDetailsRepository.findByUser(userRepository.findUserByUserId(s).get(0)).get(0);
-//                reciverSessionId.setListSessions(sessionDetails.getSessionId());
+//                reciverSessionId.setSessionListId();
                 participantsList.add(participants);
             }
             sessionDetails.setParticipantsList(participantsList);

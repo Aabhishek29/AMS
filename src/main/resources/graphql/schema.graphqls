@@ -5,14 +5,28 @@ schema{
 
 
 type Query{
-    allUsers(userId:String,phone:String) : [Users]
+    allUsers(userId: String,phone: String,email: String,organizationEmail: String) : [Users]
+    allAuthenticatedUsers : [Users]
+    allAnoyUser(userId: String) : [AnoyUser]
     userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
     sessionDetails : [SessionDetails]
     chatMessages : [ChatMessages]
+    participants : [Participants]
 }
 
 type Mutation {
     createUsers(userName:String!,name:String!,email:String,password:String!,phone:String,organizationEmail:String,profileUrl:String) : Users
+    createAnoyUser(userName: String, profileUrl : String, clientToken:String): [AnoyUser]
+}
+
+type AnoyUser {
+    userId : String
+    userName : String
+    createdAt : String
+    updatedAt : String
+    profileUrl : String
+    authenticated : Boolean
+    clientToken : String
 }
 
 type Users {
@@ -38,7 +52,7 @@ type UserDetails {
     status : String,
     profileUrl : String,
     deactivateUser : String,
-    sessionDetails : [SessionDetails]
+    sessionDetailsList : [SessionDetails]
 }
 
 

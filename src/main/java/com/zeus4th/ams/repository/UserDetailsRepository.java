@@ -26,4 +26,6 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails,String>
     List<UserDetails> findBySessionListIdAndDeactivateUser(String sessionListId, Boolean deactivateUser);
 
     List<UserDetails> findByAppIdAndDeactivateUser(String appId, Boolean deactivateUser);
+
+    UserDetails findUserDetailsByUserAndAppId(User user,String appId);
 }

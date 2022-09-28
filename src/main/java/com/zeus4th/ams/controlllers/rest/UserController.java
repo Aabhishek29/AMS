@@ -1,13 +1,11 @@
-package com.zeus4th.ams.controlller;
+package com.zeus4th.ams.controlllers.rest;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import com.zeus4th.ams.config.LoggingController;
 import com.zeus4th.ams.model.User;
-import com.zeus4th.ams.model.UserDetails;
 import com.zeus4th.ams.repository.UserDetailsRepository;
 import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {"http://localhost:8080","https://portal-ams.herokuapp.com","http://localhost:8080","https://amsportalapp.herokuapp.com"},
         allowedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"},
         allowCredentials = "true")
-@RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UserController{
 
     @Autowired
@@ -59,32 +56,6 @@ public class UserController{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/users/auth")
-    public ResponseEntity<Map<String, String>> getUserByUserName(@RequestParam("username") String username,
-                                                        @RequestParam("password") String password) {
-        try {
-            List<User> users = userRepository.findByUserNameEquals(username);
-            if (users.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }else {
-                if (password.equals(users.get(0).getPassword())){
-                    Map<String, String> body = new HashMap<>();
-                    body.put("status", "true");
-                    body.put("superUser",String.valueOf(users.get(0).getSuperUser()));
-                    body.put("authenticated",String.valueOf(users.get(0).getAuthenticated()));
-                    return new ResponseEntity<>(body,HttpStatus.OK);
-                }
-                else{
-                    Map<String, String> body = new HashMap<>();
-                    body.put("status", "false");
-                    return new ResponseEntity<>(body,HttpStatus.OK);
-                }
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
 
     // Only Applicable for staging URL
     @PostMapping("/users")

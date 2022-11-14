@@ -15,7 +15,7 @@ type Query{
 
 type Mutation {
     createUsers(userName:String!,name:String!,email:String,password:String!,phone:String,organizationEmail:String,profileUrl:String) : Users
-    createAnoyUser(userName: String, profileUrl : String, clientToken:String): [AnoyUser]
+    createAnoyUser(userName: String, profileUrl : String, clientToken:String): AnoyUser
 }
 
 type AnoyUser {

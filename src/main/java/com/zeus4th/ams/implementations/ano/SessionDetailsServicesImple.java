@@ -1,4 +1,4 @@
-package com.zeus4th.ams.implementations;
+package com.zeus4th.ams.implementations.ano;
 
 import com.zeus4th.ams.model.ano.models.SessionDetails;
 import com.zeus4th.ams.repository.ano.repository.SessionDetailsRepository;

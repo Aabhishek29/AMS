@@ -7,6 +7,7 @@ type Query{
     allUsers(userId: String,phone: String,email: String,organizationEmail: String) : [Users]
     allAuthenticatedUsers : [Users]
     allAnoyUser(userId: String) : [AnoyUser]
+    allUserDetails(userId:String): [UserDetails]
     userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
     sessionDetails : [SessionDetails]
     chatMessages : [ChatMessages]
@@ -16,6 +17,7 @@ type Query{
 type Mutation {
     createUsers(userName:String!,name:String!,email:String,password:String!,phone:String,organizationEmail:String,profileUrl:String) : Users
     createAnoyUser(userName: String, profileUrl : String, clientToken:String): [AnoyUser]
+    addUserDetails(userId:String, appId: String, profileUrl: String) : UserDetails
 }
 
 type AnoyUser {

@@ -11,11 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-//@EntityListeners(User.class)
 @Table(name = "users")
 public class User {
-
-
     @Id
     @Column(name = "userId",unique = true,nullable = false)
     private String userId;
@@ -33,7 +30,7 @@ public class User {
     private  String password ;
     @Column(name = "phone", unique = true, length = 10)
     private  long phone ;
-    @Column(name = "organization_email", unique = true, length = 80)
+    @Column(name = "organization_email", length = 80)
     private  String organizationEmail ;
     @Column(name = "created_at", nullable = false)
     private  String createdAt ;

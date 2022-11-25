@@ -37,7 +37,7 @@ public class UserDetails {
 
     @OneToMany(mappedBy = "userDetails", fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<SessionDetails> sessionDetailsList = new ArrayList<>();
+    private List<SessionDetails> sessionDetails = new ArrayList<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
@@ -127,11 +127,11 @@ public class UserDetails {
     }
 
     public List<SessionDetails> getListSessions() {
-        return sessionDetailsList;
+        return sessionDetails;
     }
 
     public void setListSessions(List<SessionDetails> listSessions) {
-        this.sessionDetailsList = listSessions;
+        this.sessionDetails = listSessions;
     }
 
 

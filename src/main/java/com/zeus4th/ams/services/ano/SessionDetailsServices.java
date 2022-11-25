@@ -8,4 +8,6 @@ public interface SessionDetailsServices {
 
     List<SessionDetails> getAllSessions(String sessionId);
 
+    SessionDetails createSession(SessionDetails sessionDetails);
+
 }

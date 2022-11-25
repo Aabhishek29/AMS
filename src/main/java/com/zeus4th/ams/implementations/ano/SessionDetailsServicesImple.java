@@ -22,4 +22,9 @@ public class SessionDetailsServicesImple implements SessionDetailsServices {
     public List<SessionDetails> getAllSessions(String sessionId) {
         return sessionDetailsRepository.findBySessionId(sessionId);
     }
+
+    @Override
+    public SessionDetails createSession(SessionDetails sessionDetails) {
+        return sessionDetailsRepository.save(sessionDetails);
+    }
 }

@@ -1,8 +1,8 @@
-package com.zeus4th.ams.implementations;
+package com.zeus4th.ams.implementations.ano;
 
 import com.zeus4th.ams.model.ano.models.AnoyUser;
 import com.zeus4th.ams.repository.ano.repository.AnoyUserRepository;
-import com.zeus4th.ams.services.AnoyUserServices;
+import com.zeus4th.ams.services.ano.AnoyUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

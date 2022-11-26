@@ -74,6 +74,7 @@ public class SessionDetailController {
 
         for (String chatParticipant : chatParticipants) {
             Participants participants1 = new Participants();
+            // here chatParticipants is the userId
             User user = userRepository.findUserByUserId(chatParticipant);
             if(user==null){
                 return null;

@@ -22,32 +22,55 @@ public class AuthUtils {
 
     @GetMapping("/users/auth")
     public ResponseEntity<Map<String, String>> getUserByUserName(
-            @RequestParam("username") String username,
+            @RequestParam(value = "username", required = false) String username,
+            @RequestParam(value = "email", required = false) String email,
             @RequestParam("password") String password
     ) {
         try {
-            List<User> users = userRepository.findByUserNameEquals(username);
+            System.out.println(String.format("API Call for getUserByUserName: Username is %s and Email is %s",username,email));
+            List<User> users = null;
+            if (email!=null){
+                users = userRepository.findByEmail(email);
+            }else if(username != null){
+                System.out.println(String.format("API Call for getUserByUserName: %s",username));
+                users = userRepository.findByUserNameEquals(username);
+            }else {
+                Map<String, String> body = new HashMap<>();
+                body.put("email", "not valid");
+                body.put("username", "not valid");
+                return new ResponseEntity<>(body,HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
             System.out.println(users.get(0).getUserName());
             System.out.println(users.get(0).getPassword());
-            if (users.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if (users.size()==0) {
+                System.out.println("API Call for getUserByUserName: User Not Found");
+                Map<String, String> body = new HashMap<>();
+                body.put("Error message", "not valid credentials");
+                return new ResponseEntity<>(body,HttpStatus.NOT_FOUND);
             }else {
                 if (password.equals(users.get(0).getPassword())){
                     Map<String, String> body = new HashMap<>();
                     body.put("status", "true");
                     body.put("superUser",String.valueOf(users.get(0).getSuperUser()));
                     body.put("authenticated",String.valueOf(users.get(0).getAuthenticated()));
+                    body.put("userId", String.valueOf(users.get(0).getUserId()));
+                    body.put("name",String.valueOf(users.get(0).getName()));
+                    body.put("username",String.valueOf(users.get(0).getUserName()));
                     return new ResponseEntity<>(body,HttpStatus.OK);
                 }
                 else{
+                    System.out.println("API Call for getUserByUserName: Credentials Not Matched");
                     Map<String, String> body = new HashMap<>();
+                    body.put("error message", "userId and password not matched");
                     body.put("status", "false");
                     return new ResponseEntity<>(body,HttpStatus.OK);
                 }
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            Map<String, String> body = new HashMap<>();
+            body.put("Error message", "not valid credentials");
+            System.out.println("API Call for getUserByUserName: Exception found:"+e.getMessage());
+            return new ResponseEntity<>(body,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

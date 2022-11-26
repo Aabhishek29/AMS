@@ -1,4 +1,4 @@
-package com.zeus4th.ams.implementations;
+package com.zeus4th.ams.implementations.ano;
 
 import com.zeus4th.ams.model.ano.models.SessionDetails;
 import com.zeus4th.ams.repository.ano.repository.SessionDetailsRepository;
@@ -21,5 +21,10 @@ public class SessionDetailsServicesImple implements SessionDetailsServices {
     @Override
     public List<SessionDetails> getAllSessions(String sessionId) {
         return sessionDetailsRepository.findBySessionId(sessionId);
+    }
+
+    @Override
+    public SessionDetails createSession(SessionDetails sessionDetails) {
+        return sessionDetailsRepository.save(sessionDetails);
     }
 }

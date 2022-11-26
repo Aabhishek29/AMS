@@ -1,6 +1,7 @@
 package com.zeus4th.ams.controlllers.gql;
 
 import com.zeus4th.ams.model.User;
+import com.zeus4th.ams.repository.UserRepository;
 import com.zeus4th.ams.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserServices userServices;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @MutationMapping("createUsers")
     public User createUser(
@@ -49,6 +54,12 @@ public class UserController {
         user.setPhone(Long.parseLong(phone));
         user.setCreatedAt(createdAt);
         user.setUpdatedAt(createdAt);
+        if(!Objects.equals(organizationEmail, "")){
+            List<User> user1 = userRepository.findByOrganizationEmail(organizationEmail);
+            if(!user1.isEmpty()){
+                return null;
+            }
+        }
         user.setOrganizationEmail(organizationEmail);
         user.setProfileUrl(profileUrl);
         user.setAuthenticated(true);

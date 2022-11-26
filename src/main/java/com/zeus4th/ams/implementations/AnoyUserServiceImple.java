@@ -30,6 +30,12 @@ public class AnoyUserServiceImple implements AnoyUserServices {
 
     @Override
     public AnoyUser createAnoyUser(AnoyUser anoyUser) {
-        return anoyUserRepository.save(anoyUser);
+        AnoyUser as = null;
+        try{
+            as = anoyUserRepository.save(anoyUser);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return as;
     }
 }

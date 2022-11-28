@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,6 +60,15 @@ public class UserDetailsControllerGql {
     public List<UserDetails> allUserDetails(
             @Argument String userId
     ) {
+        if (userId!=null){
+            User user = userRepository.findUserByUserId(userId);
+            if (user==null){
+                return null;
+            }
+            List<UserDetails> userDetailsList = new ArrayList<>();
+            userDetailsList.add(userDetailsServices.UserDetailsByUserId(user));
+            return userDetailsList;
+        }
         return userDetailsServices.getAllUserDetails();
     }
 }

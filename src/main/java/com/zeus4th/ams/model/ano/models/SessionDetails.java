@@ -44,25 +44,22 @@ public class SessionDetails {
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<ChatMessages> chatMessagesId = new ArrayList<>();
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_details_session_list_id", nullable = false)
+    @ManyToMany(targetEntity = UserDetails.class)
     @JsonBackReference
-    private UserDetails userDetails;
+    private List<UserDetails> userDetails = new ArrayList<>();
 
 
     public SessionDetails() {
     }
 
-    public SessionDetails(String sessionId, String createdAt, String updatedAt, String chatType, String groupProfileUrl, String connectionType, String creator, String sessionListId) {
+    public SessionDetails(String sessionId, String createdAt, String updatedAt, String chatType, String groupProfileUrl, String connectionType, String creator) {
         this.sessionId = sessionId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.chatType = chatType;
         this.groupProfileUrl = groupProfileUrl;
         this.connectionType = connectionType;
-        this.creator = creator;
-        userDetails = new UserDetails();
-        userDetails.setSessionListId(sessionListId);
+        this.creator = creator;;
     }
 
     public String getSessionId() {
@@ -137,11 +134,11 @@ public class SessionDetails {
         this.chatMessagesId = chatMessagesId;
     }
 
-    public UserDetails getUserDetails() {
+    public List<UserDetails> getUserDetails() {
         return userDetails;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
+    public void setUserDetails(List<UserDetails> userDetails) {
         this.userDetails = userDetails;
     }
 }

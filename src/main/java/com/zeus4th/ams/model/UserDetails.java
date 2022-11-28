@@ -35,7 +35,7 @@ public class UserDetails {
     @Column(name = "deactivate_user")
     private Boolean deactivateUser;
 
-    @OneToMany(mappedBy = "userDetails", fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = SessionDetails.class)
     @JsonManagedReference
     private List<SessionDetails> sessionDetails = new ArrayList<>();
 

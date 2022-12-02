@@ -3,6 +3,7 @@ package com.zeus4th.ams.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.zeus4th.ams.model.ano.models.SessionDetails;
+import com.zeus4th.ams.model.ano.models.SessionUserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,16 +36,33 @@ public class UserDetails {
     @Column(name = "deactivate_user")
     private Boolean deactivateUser;
 
-    @ManyToMany(targetEntity = SessionDetails.class)
-    @JsonManagedReference
-    private List<SessionDetails> sessionDetails = new ArrayList<>();
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "session_user_details",nullable = false)
+    @JsonBackReference
+    private SessionUserDetails sessionUserDetails;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
     @JsonBackReference
     private User user;
 
-    public UserDetails(String sessionListId, String createdAt, String updatedAt, String appId, String status, String pofileUrl, Boolean deactivateUser,String userId) {
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public SessionUserDetails getSessionUserDetails() {
+        return sessionUserDetails;
+    }
+
+    public void setSessionUserDetails(SessionUserDetails sessionUserDetails) {
+        this.sessionUserDetails = sessionUserDetails;
+    }
+
+    public UserDetails(String sessionListId, String createdAt, String updatedAt, String appId, String status, String pofileUrl, Boolean deactivateUser, String userId) {
         this.sessionListId = sessionListId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -126,13 +144,6 @@ public class UserDetails {
         this.profileUrl = profileUrl;
     }
 
-    public List<SessionDetails> getListSessions() {
-        return sessionDetails;
-    }
-
-    public void setListSessions(List<SessionDetails> listSessions) {
-        this.sessionDetails = listSessions;
-    }
 
 
 

@@ -44,10 +44,16 @@ public class SessionDetails {
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<ChatMessages> chatMessagesId = new ArrayList<>();
 
-    @ManyToMany(targetEntity = UserDetails.class)
-    @JsonBackReference
-    private List<UserDetails> userDetails = new ArrayList<>();
+    @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
+    private List<SessionUserDetails> sessionUserDetailsList = new ArrayList<>();
 
+    public List<SessionUserDetails> getSessionUserDetailsList() {
+        return sessionUserDetailsList;
+    }
+
+    public void setSessionUserDetailsList(List<SessionUserDetails> sessionUserDetailsList) {
+        this.sessionUserDetailsList = sessionUserDetailsList;
+    }
 
     public SessionDetails() {
     }
@@ -134,11 +140,4 @@ public class SessionDetails {
         this.chatMessagesId = chatMessagesId;
     }
 
-    public List<UserDetails> getUserDetails() {
-        return userDetails;
-    }
-
-    public void setUserDetails(List<UserDetails> userDetails) {
-        this.userDetails = userDetails;
-    }
 }

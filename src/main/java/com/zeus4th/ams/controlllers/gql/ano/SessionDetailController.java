@@ -24,7 +24,6 @@ import java.util.UUID;
 
 @Controller
 public class SessionDetailController {
-
     @Autowired
     private SessionDetailsServices sessionDetailsServices;
     @Autowired
@@ -43,72 +42,73 @@ public class SessionDetailController {
         return sessionDetailsServices.getAllSessions(sessionId);
     }
 
-
     /*
         * Here creator and participants is userId of person which create
             new session with other people or group of peoples.
         * Here chatType defines that chat is normal peer-to-peer or group chat.
     */
-    @MutationMapping("addSessionDetails")
-    public SessionDetails addSessionDetails(
-            @Argument String chatType,
-            @Argument String groupProfileUrl,
-            @Argument String connectionType,
-            @Argument String creator,
-            @Argument String sessionListId,
-            @Argument List<String> chatParticipants
-    ){
-        String sessionId = UUID.randomUUID().toString();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
-        LocalDateTime now = LocalDateTime.now(zoneid1);
-        String createdAt = dtf.format(now);
 
-        SessionDetails sessionDetails = new SessionDetails();
-
-        sessionDetails.setSessionId(sessionId);
-        sessionDetails.setCreatedAt(createdAt);
-        sessionDetails.setUpdatedAt(createdAt);
-        sessionDetails.setChatType(chatType);
-        sessionDetails.setGroupProfileUrl(groupProfileUrl);
-        sessionDetails.setConnectionType(connectionType);
-
-        sessionDetails.setCreator(creator);
-
-
-        List<Participants> participantsList = null;
-        List<UserDetails> userDetailsList = new ArrayList<>();
-
-        UserDetails userDetails = userDetailsRepository.findBySessionListId(sessionListId).get(0);
-        if(userDetails!=null) {
-            userDetailsList.add(userDetails);
-        }
-        else {
-            return null;
-        }
-        for (String chatParticipant : chatParticipants) {
-            Participants participants1 = new Participants();
-            // here chatParticipants is the userId
-            User user = userRepository.findUserByUserId(chatParticipant);
-            if(user==null){
-                return null;
-            }
-
-            userDetails = userDetailsServices.UserDetailsByUserId(user);
-            if(userDetails==null)
-                return null;
-            userDetailsList.add(userDetails);
-            participants1.setUserId(chatParticipant);
-            participants1.setSessionId(sessionId);
-            participants1.setParticipantId(chatParticipant + creator);
-            participantsList.add(participantsRepository.save(participants1));
-        }
-        System.out.println("addSessionDetails: Error on line number: 110");
-        sessionDetails.setUserDetails(userDetailsList);
-        System.out.println("addSessionDetails: Error on line number: 112");
-        sessionDetails.setParticipantsList(participantsList);
-        System.out.println("addSessionDetails: Error on line number: 114");
-        return sessionDetailsServices.createSession(sessionDetails);
-    }
+//    @MutationMapping("addSessionDetails")
+//    public SessionDetails addSessionDetails(
+//            @Argument String chatType,
+//            @Argument String groupProfileUrl,
+//            @Argument String connectionType,
+//            @Argument String creator,
+//            @Argument String sessionListId,
+//            @Argument List<String> chatParticipants
+//    ){
+//        String sessionId = UUID.randomUUID().toString();
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//        ZoneId zoneid1 = ZoneId.of("Asia/Kolkata");
+//        LocalDateTime now = LocalDateTime.now(zoneid1);
+//        String createdAt = dtf.format(now);
+//
+//        SessionDetails sessionDetails = new SessionDetails();
+//
+//        sessionDetails.setSessionId(sessionId);
+//        sessionDetails.setCreatedAt(createdAt);
+//        sessionDetails.setUpdatedAt(createdAt);
+//        sessionDetails.setChatType(chatType);
+//        sessionDetails.setGroupProfileUrl(groupProfileUrl);
+//        sessionDetails.setConnectionType(connectionType);
+//
+//        sessionDetails.setCreator(creator);
+//
+//
+//        List<Participants> participantsList = null;
+//        List<UserDetails> userDetailsList = new ArrayList<>();
+//
+//        UserDetails userDetails = userDetailsRepository.findBySessionListId(sessionListId).get(0);
+//        if(userDetails!=null) {
+//            userDetailsList.add(userDetails);
+//        }
+//        else {
+//            return null;
+//        }
+//        for (String chatParticipant : chatParticipants) {
+//            Participants participants1 = new Participants();
+//            // here chatParticipants is the userId
+//            User user = userRepository.findUserByUserId(chatParticipant);
+//            if(user==null){
+//                return null;
+//            }
+//
+//            userDetails = userDetailsServices.UserDetailsByUserId(user);
+//            if(userDetails==null)
+//                return null;
+//            userDetailsList.add(userDetails);
+//            participants1.setUserId(chatParticipant);
+//            participants1.setSessionId(sessionId);
+//            participants1.setParticipantId(chatParticipant + creator);
+//                participantsRepository.save(participants1);
+//            participantsList.add(participants1);
+//        }
+//        System.out.println("addSessionDetails: Error on line number: 110");
+//        sessionDetails.setUserDetails(userDetailsList);
+//        System.out.println("addSessionDetails: Error on line number: 112");
+//        sessionDetails.setParticipantsList(participantsList);
+//        System.out.println("addSessionDetails: Error on line number: 114");
+//        return sessionDetailsServices.createSession(sessionDetails);
+//    }
 
 }

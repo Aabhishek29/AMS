@@ -20,6 +20,11 @@ public class User {
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,orphanRemoval = true)
     private List<UserDetails> userDetails = new ArrayList<>();
 
+    @Column(name = "coins")
+    private Number coins;
+
+
+
     @Column(name = "user_name", length = 50, unique = true,nullable = false)
     private  String userName;
     @Column(name = "name", length = 50, nullable = false)
@@ -78,6 +83,7 @@ public class User {
         this.profileUrl = profileUrl;
         this.authenticated = authenticated;
         this.superUser = superUser;
+        this.coins = 0;
     }
 
     public List<UserDetails> getUserDetails() {
@@ -171,7 +177,13 @@ public class User {
 
 
     }
+    public Number getCoins() {
+        return coins;
+    }
 
+    public void setCoins(Number coins) {
+        this.coins = coins;
+    }
     public String getProfileUrl() {
         return profileUrl;
     }

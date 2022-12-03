@@ -18,7 +18,7 @@ type Mutation {
     createUsers(userName:String!,name:String!,email:String,password:String!,phone:String,organizationEmail:String,profileUrl:String) : Users
     createAnoyUser(userName: String, profileUrl : String, clientToken:String): [AnoyUser]
     addUserDetails(userId:String, appId: String, profileUrl: String) : UserDetails
-    addSessionDetails(chatType: String, groupProfileUrl: String, connectionType: String, creator: String, chatParticipants: [String]) : SessionDetails
+    addSessionDetails(chatType: String, groupProfileUrl: String, connectionType: String, creator: String, chatParticipants: [String],sessionListId: String) : SessionDetails
 }
 
 type AnoyUser {

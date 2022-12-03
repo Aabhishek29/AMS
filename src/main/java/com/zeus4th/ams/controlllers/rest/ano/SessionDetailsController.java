@@ -1,4 +1,4 @@
-package com.zeus4th.ams.controlller.anocontroller;
+package com.zeus4th.ams.controlllers.rest.ano;
 
 import com.zeus4th.ams.model.UserDetails;
 import com.zeus4th.ams.model.ano.models.Participants;
@@ -70,7 +70,7 @@ public class SessionDetailsController {
         try {
 
             String sessionId = UUID.randomUUID().toString();
-            SessionDetails sessionDetails = sessionDetailsRepository.save(new SessionDetails(sessionId,newdate,newdate,chatType,groupProfileUrl,connectionType,creatorId,sessionListId));
+            SessionDetails sessionDetails = sessionDetailsRepository.save(new SessionDetails(sessionId,newdate,newdate,chatType,groupProfileUrl,connectionType,creatorId));
             List<Participants> participantsList = new ArrayList<>();
             Participants participants = participantsRepository.save(new Participants(creatorId+sessionId,creatorId,sessionId));
             participantsList.add(participants);

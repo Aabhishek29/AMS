@@ -1,5 +1,6 @@
 package com.zeus4th.ams.implementations;
 
+import com.zeus4th.ams.model.User;
 import com.zeus4th.ams.model.UserDetails;
 import com.zeus4th.ams.repository.UserDetailsRepository;
 import com.zeus4th.ams.repository.UserRepository;
@@ -22,6 +23,11 @@ public class UserDetailsImpl implements UserDetailsServices {
     @Override
     public UserDetails createUserDetails(UserDetails userDetails) {
         return this.userDetailsRepository.save(userDetails);
+    }
+
+    @Override
+    public UserDetails UserDetailsByUserId(User user) {
+        return this.userDetailsRepository.findByUser(user).get(0);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.zeus4th.ams.controlllers.gql.ano;
 
 
 import com.zeus4th.ams.model.ano.models.AnoyUser;
-import com.zeus4th.ams.services.AnoyUserServices;
+import com.zeus4th.ams.services.ano.AnoyUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;

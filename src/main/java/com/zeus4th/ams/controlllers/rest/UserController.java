@@ -47,7 +47,6 @@ public class UserController{
     @GetMapping("/users/{userId}")
     public ResponseEntity<User> getUserByUserId(@PathVariable("userId") String userId) {
         Optional<User> userData = userRepository.findByUserId(userId);
-
         if (userData.isPresent()) {
             System.out.println(userData.get());
             return new ResponseEntity<>(userData.get(), HttpStatus.OK);
@@ -59,7 +58,7 @@ public class UserController{
 
     // Only Applicable for staging URL
     @PostMapping("/users")
-    public ResponseEntity<String> createUser(@RequestParam ("userName") String userName,
+    public ResponseEntity<User> createUser(@RequestParam ("userName") String userName,
                                            @RequestParam("name") String name, @RequestParam("email")String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("phone") long phone,
@@ -77,7 +76,7 @@ public class UserController{
             User _user = userRepository
                     .save(new User(userId,userName,name,email,password,phone,organizationEmail,newdate,newdate,
                             profileUrl,true, false));
-            return new ResponseEntity<>(_user.toString(), HttpStatus.CREATED);
+            return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

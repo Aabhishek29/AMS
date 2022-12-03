@@ -46,6 +46,12 @@ type Users {
     userDetails : [UserDetails]
 }
 
+type SessionUserDetails {
+    id : ID,
+    userDetails : UserDetails
+    sessionDetails : SessionDetails
+}
+
 type UserDetails {
     sessionListId : String!,
     createdAt : String!,

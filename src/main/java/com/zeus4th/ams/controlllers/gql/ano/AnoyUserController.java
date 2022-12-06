@@ -34,8 +34,8 @@ public class AnoyUserController {
         return anoyUserServices.getAllAnoys();
     }
 
-    @MutationMapping("createAnoyUser")
-    public AnoyUser createAnoyUser(
+    @MutationMapping("addAonyUser")
+    public AnoyUser addAonyUser(
             @Argument String userName,
             @Argument String profileUrl,
             @Argument String clientToken

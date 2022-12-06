@@ -13,13 +13,10 @@ public class SessionUserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Number id;
-
     @OneToMany(mappedBy = "sessionUserDetails", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<UserDetails> userDetails = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     private SessionDetails sessionDetails;
-
     public SessionUserDetails(List<UserDetails> userDetails, SessionDetails sessionDetails) {
         this.userDetails = userDetails;
         this.sessionDetails = sessionDetails;

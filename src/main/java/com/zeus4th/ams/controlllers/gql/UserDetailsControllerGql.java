@@ -2,6 +2,7 @@ package com.zeus4th.ams.controlllers.gql;
 
 import com.zeus4th.ams.model.User;
 import com.zeus4th.ams.model.UserDetails;
+import com.zeus4th.ams.model.ano.models.SessionUserDetails;
 import com.zeus4th.ams.repository.UserRepository;
 import com.zeus4th.ams.services.UserDetailsServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,6 @@ public class UserDetailsControllerGql {
         userDetails.setStatus("valid");
         userDetails.setPofileUrl(profileUrl);
         userDetails.setDeactivateUser(false);
-
         return this.userDetailsServices.createUserDetails(userDetails);
     }
 

@@ -9,17 +9,13 @@ import java.util.List;
 @Entity
 @Table(name = "SessionUserDetails")
 public class SessionUserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Number id;
-
     @OneToMany(mappedBy = "sessionUserDetails", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<UserDetails> userDetails = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     private SessionDetails sessionDetails;
-
     public SessionUserDetails(List<UserDetails> userDetails, SessionDetails sessionDetails) {
         this.userDetails = userDetails;
         this.sessionDetails = sessionDetails;
@@ -34,7 +30,6 @@ public class SessionUserDetails {
     public void setUserDetails(List<UserDetails> userDetails) {
         this.userDetails = userDetails;
     }
-
     public void setSessionDetails(SessionDetails sessionDetails) {
         this.sessionDetails = sessionDetails;
     }

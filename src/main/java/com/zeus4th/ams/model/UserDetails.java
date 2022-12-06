@@ -22,7 +22,6 @@ public class UserDetails {
     @Column(name = "updated_at",nullable = false)
     private String updatedAt;
 
-
     // appId define as "AMS-ANO", "AMS-Upcoming...",etc.
     @Column(name = "appId", nullable = false)
     private String appId;

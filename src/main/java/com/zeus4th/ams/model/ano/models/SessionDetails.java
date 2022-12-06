@@ -44,16 +44,8 @@ public class SessionDetails {
     @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
     private List<ChatMessages> chatMessagesId = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sessionDetails",fetch = FetchType.LAZY)
-    private List<SessionUserDetails> sessionUserDetailsList = new ArrayList<>();
-
-    public List<SessionUserDetails> getSessionUserDetailsList() {
-        return sessionUserDetailsList;
-    }
-
-    public void setSessionUserDetailsList(List<SessionUserDetails> sessionUserDetailsList) {
-        this.sessionUserDetailsList = sessionUserDetailsList;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    private SessionUserDetails sessionUserDetails;
 
     public SessionDetails() {
     }
@@ -66,6 +58,14 @@ public class SessionDetails {
         this.groupProfileUrl = groupProfileUrl;
         this.connectionType = connectionType;
         this.creator = creator;;
+    }
+
+    public SessionUserDetails getSessionUserDetails() {
+        return sessionUserDetails;
+    }
+
+    public void setSessionUserDetails(SessionUserDetails sessionUserDetails) {
+        this.sessionUserDetails = sessionUserDetails;
     }
 
     public String getSessionId() {

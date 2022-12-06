@@ -22,15 +22,12 @@ import java.util.UUID;
         allowedHeaders ={"Access-Control-Allow-Origin", "Access-Control-Allow-Headers","Authorization", "Cache-Control", "Content-Type"},
         allowCredentials = "true")
 public class UserController {
-
     @Autowired
     private UserServices userServices;
-
     @Autowired
     private UserRepository userRepository;
-
-    @MutationMapping("createUsers")
-    public User createUser(
+    @MutationMapping("addUser")
+    public User addUser(
             @Argument String name,
             @Argument String userName,
             @Argument String email,

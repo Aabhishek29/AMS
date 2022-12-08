@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name = "SessionUserDetails")
 public class SessionUserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Number id;
@@ -31,7 +30,6 @@ public class SessionUserDetails {
     public void setUserDetails(List<UserDetails> userDetails) {
         this.userDetails = userDetails;
     }
-
     public void setSessionDetails(SessionDetails sessionDetails) {
         this.sessionDetails = sessionDetails;
     }

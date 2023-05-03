@@ -1,13 +1,9 @@
 package com.zeus4th.ams.model;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,13 +13,8 @@ public class User {
     @Column(name = "userId",unique = true,nullable = false)
     private String userId;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,orphanRemoval = true)
-    private List<UserDetails> userDetails = new ArrayList<>();
-
-    @Column(name = "coins")
-    private Number coins;
-
-
+    @Column(name = "bids")
+    private Number bids;
 
     @Column(name = "user_name", length = 50, unique = true,nullable = false)
     private  String userName;
@@ -83,15 +74,7 @@ public class User {
         this.profileUrl = profileUrl;
         this.authenticated = authenticated;
         this.superUser = superUser;
-        this.coins = 0;
-    }
-
-    public List<UserDetails> getUserDetails() {
-        return userDetails;
-    }
-
-    public void setUserDetails(List<UserDetails> userDetails) {
-        this.userDetails = userDetails;
+        this.bids = 0;
     }
 
     public String getUserId() {
@@ -177,12 +160,12 @@ public class User {
 
 
     }
-    public Number getCoins() {
-        return coins;
+    public Number getBids() {
+        return bids;
     }
 
-    public void setCoins(Number coins) {
-        this.coins = coins;
+    public void setBids(Number bids) {
+        this.bids = bids;
     }
     public String getProfileUrl() {
         return profileUrl;
@@ -211,24 +194,6 @@ public class User {
     public void setSuperUser(Boolean superUser) {
         this.superUser = superUser;
     }
-
-    //    public class LastUpdateListener {
-//        /**
-//         * automatic property set before any database persistence
-//         */
-//        @PreUpdate
-//        @PrePersist
-//        public void setLastUpdate(User o) {
-//            o.setAuthenticated(true );
-//        }
-//    }
-
-//    public String getCurrentTime(){
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-//        LocalDateTime now = LocalDateTime.now();
-//        String newdate = dtf.format(now);
-//        return newdate;
-//    }
 
     @PrePersist
     public void initializedUuid() {

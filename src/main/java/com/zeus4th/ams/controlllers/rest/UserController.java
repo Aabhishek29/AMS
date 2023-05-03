@@ -6,11 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.zeus4th.ams.model.User;
-import com.zeus4th.ams.repository.UserDetailsRepository;
 import com.zeus4th.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,28 +22,22 @@ public class UserController{
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    private UserDetailsRepository userDeailsResposity;
-
-    // To Display All Users This Method is Invoke
-
-//    @GetMapping("/users")
-//    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String name) {
-//        try {
-//            List<User> users = new ArrayList<User>();
-//            if (name == null)
-//                userRepository.findAll().forEach(users::add);
-//            else
-//                userRepository.findByUserNameEquals(name).forEach(users::add);
-//            if (users.isEmpty()) {
-//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//            }
-//            return new ResponseEntity<>(users, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String name) {
+        try {
+            List<User> users = new ArrayList<User>();
+            if (name == null)
+                userRepository.findAll().forEach(users::add);
+            else
+                userRepository.findByUserNameEquals(name).forEach(users::add);
+            if (users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/users/{userId}")
     public ResponseEntity<User> getUserByUserId(@PathVariable("userId") String userId) {
         Optional<User> userData = userRepository.findByUserId(userId);
@@ -59,7 +53,8 @@ public class UserController{
     // Only Applicable for staging URL
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestParam ("userName") String userName,
-                                           @RequestParam("name") String name, @RequestParam("email")String email,
+                                           @RequestParam("name") String name,
+                                           @RequestParam("email")String email,
                                            @RequestParam("password") String password,
                                            @RequestParam("phone") long phone,
                                            @RequestParam("organizationEmail") String organizationEmail,

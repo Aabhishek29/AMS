@@ -6,35 +6,17 @@ schema{
 type Query{
     allUsers(userId: String,phone: String,email: String,organizationEmail: String) : [Users]
     allAuthenticatedUsers : [Users]
-    allAnoyUser(userId: String) : [AnoyUser]
-    allUserDetails(userId:String): [UserDetails]
-    userDetails(appId: String, sessionListId: String, deactivateUser: String) : [UserDetails]
-    sessionDetails : [SessionDetails]
-    chatMessages : [ChatMessages]
-    participants : [Participants]
 }
 
 type Mutation {
     addUser(userName:String!,name:String!,email:String,password:String!,phone:String,organizationEmail:String,profileUrl:String) : Users
-    addAonyUser(userName: String, profileUrl : String, clientToken:String): [AnoyUser]
-    addUserDetails(userId:String, appId: String, profileUrl: String) : UserDetails
-    addSessionDetails(chatType: String, groupProfileUrl: String, connectionType: String, creator: String, chatParticipants: [String],sessionListId: String) : SessionDetails
-}
-
-type AnoyUser {
-    userId : String
-    userName : String
-    createdAt : String
-    updatedAt : String
-    profileUrl : String
-    authenticated : Boolean
-    clientToken : String
 }
 
 type Users {
     userName : String!,
     userId: String!,
     name:String!,
+    bids: Int,
     email : String!,
     password : String!,
     phone : String,
@@ -43,52 +25,4 @@ type Users {
     updatedAt: String,
     profileUrl : String,
     authenticated: String
-    userDetails : [UserDetails]
-}
-
-type SessionUserDetails {
-    id : ID,
-    userDetails : UserDetails
-    sessionDetails : SessionDetails
-}
-
-type UserDetails {
-    sessionListId : String!,
-    createdAt : String!,
-    updatedAt : String!,
-    appId : String!,
-    status : String,
-    profileUrl : String,
-    deactivateUser : String,
-    sessionDetails : [SessionDetails]
-}
-
-
-
-type Participants {
-    participantId : String,
-    userId : String,
-    sessionId : String
-}
-
-type SessionDetails {
-    sessionId : String,
-    createdAt : String,
-    updatedAt : String,
-    chatType : String,
-    groupProfileUrl : String,
-    connectionType : String,
-    creator : String, # userId of creator
-    participantsList : [Participants],
-    chatMessagesId : [ChatMessages]
-}
-
-type ChatMessages {
-    messageId : ID,
-    message : String,
-    mimeType : String,
-    createdAt : String,
-    sender : String,
-    emotion : String,
-    SessionDetails : SessionDetails
 }
